@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="uta.ubs.LoginActivity"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="126dp"
+        android:layout_height="89dp"
+        app:srcCompat="@drawable/uta_logo"
+        android:layout_gravity="center"
+        android:layout_weight="0.05"
+        android:layout_marginTop="50dp"/>
+
+    <android.support.design.widget.TextInputLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="50dp"
+    android:layout_marginLeft="50dp">
+
+
+    <android.support.design.widget.TextInputEditText
+        android:id="@+id/editText3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:inputType="number"
+        android:hint="User Id"
+        android:layout_marginLeft="36dp" />
+</android.support.design.widget.TextInputLayout>
+
+<android.support.design.widget.TextInputLayout
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:passwordToggleEnabled="true">
+
+
+    <android.support.design.widget.TextInputEditText
+        android:id="@+id/editText4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:hint="Enter Password"
+        android:inputType="textPassword"
+        android:layout_marginLeft="85dp" />
+
+</android.support.design.widget.TextInputLayout>
+
+
+    <Button
+        android:id="@+id/button1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LOGIN"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="20dp"
+        style="?android:attr/borderlessButtonStyle"></Button>
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.05"
+        android:text="Forgot Password?"
+        android:layout_marginTop="20dp"
+        android:layout_marginLeft="136dp"/>
+
+
+</LinearLayout>

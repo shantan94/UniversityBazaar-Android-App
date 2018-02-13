@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">UBS</string>
+    <string name="title_activity_login">LoginActivity</string>
+    <string name="password">Password</string>
+    <string-array name="gender_array">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
+</resources>

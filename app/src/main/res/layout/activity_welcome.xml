@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:context="uta.ubs.WelcomeActivity">
+
+
+    <ImageView
+        android:id="@+id/Logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/uta_logo"
+        tools:layout_editor_absoluteX="80dp"
+        tools:layout_editor_absoluteY="78dp"
+        android:layout_marginTop="89dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:id="@+id/Login"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LOGIN"
+        android:textSize="20dp"
+        android:background="@color/white"
+        android:layout_marginTop="41dp"
+        android:layout_below="@+id/Logo"
+        android:layout_centerHorizontal="true"
+        style="?android:attr/borderlessButtonStyle"/>
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="25dp"
+        android:text="Register"
+        android:textSize="20dp"
+        android:padding="5dp"
+        android:background="@color/white"
+        android:layout_below="@+id/Login"
+        android:layout_centerHorizontal="true"
+        style="?android:attr/borderlessButtonStyle"/>
+</RelativeLayout>
