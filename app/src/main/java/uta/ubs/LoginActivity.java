@@ -15,7 +15,7 @@ import android.widget.Toast;
 
 public class LoginActivity extends AppCompatActivity {
     RegisterService rs = null;
-    String MyPREFERENCES = "Session Values";
+    static String MyPREFERENCES = "Session Values";
     SharedPreferences sharedPreferences;
 
     @Override

@@ -32,33 +32,56 @@ android:layout_height="match_parent" >
 
 </ScrollView>
 
-<Button
-    android:id="@+id/button2"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/scrollView1"
-    android:layout_centerHorizontal="true"
-    android:layout_marginTop="46dp"
-    android:text="MarketPlace" />
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/chat"
+        android:layout_marginTop="54dp"
+        android:layout_toStartOf="@+id/button"
+        android:text="MarketPlace" />
 
-<Button
-    android:id="@+id/button3"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignLeft="@+id/button2"
-    android:layout_alignStart="@+id/button2"
-    android:layout_below="@+id/button2"
-    android:layout_marginTop="26dp"
-    android:text="Clubs" />
+    <Button
+        android:id="@+id/button3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/button2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="26dp"
+        android:text="Clubs" />
 
-<Button
-    android:id="@+id/button4"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignBaseline="@+id/textView1"
-    android:layout_alignBottom="@+id/textView1"
-    android:layout_toLeftOf="@+id/button2"
-    android:layout_toStartOf="@+id/button2"
-    android:text="Profile page" />
+    <Button
+        android:id="@+id/button4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/button3"
+        android:text="Profile page" />
+
+    <TextView
+        android:id="@+id/textView2"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_alignParentStart="true"
+        android:layout_alignTop="@+id/scrollView1"
+        android:text="Notice Board" />
+
+    <EditText
+        android:id="@+id/chat"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView2"
+        android:layout_marginTop="61dp"
+        android:text="Enter text to post" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginEnd="42dp"
+        android:text="Logout" />
 
 </RelativeLayout>

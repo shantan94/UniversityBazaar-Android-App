@@ -54,9 +54,9 @@ public class HomeActivity extends AppCompatActivity {
             public void onClick(View arg0) {
 
                 // Start NewActivity.class
-//                Intent myIntent = new Intent(HomeActivity.this,
-//                        ProfilePage.class);
-//                startActivity(myIntent);
+                Intent myIntent = new Intent(HomeActivity.this,
+                        ProfilePage.class);
+                startActivity(myIntent);
             }
         });
 

@@ -28,10 +28,13 @@
             android:label="MainActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".forgotActivity"
-            android:label="MainActivity"
+            android:label="forgotActivity"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".HomeActivity"
-            android:label="MainActivity"
+            android:label="HomeActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".ProfilePage"
+            android:label="ProfilePage"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
