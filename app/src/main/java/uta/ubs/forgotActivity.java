@@ -114,6 +114,7 @@ public class forgotActivity extends AppCompatActivity {
             if(result.equals("Success")) {
                 Toast.makeText(context, "Password sent to registered email", Toast.LENGTH_LONG).show();
                 Intent next = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(next);
             }
             else
                 Toast.makeText(context, result, Toast.LENGTH_LONG).show();
