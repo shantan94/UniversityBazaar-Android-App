@@ -24,11 +24,9 @@ public class HomeActivity extends AppCompatActivity {
 
         button2.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-
-                // Start NewActivity.class
-//                Intent myIntent = new Intent(HomeActivity.this,
-//                        MarketPlace.class);
-//                startActivity(myIntent);
+                Intent myIntent = new Intent(HomeActivity.this,
+                        MarketPlace.class);
+                startActivity(myIntent);
             }
         });
 
@@ -38,11 +36,9 @@ public class HomeActivity extends AppCompatActivity {
         // Capture button clicks
         button3.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
-
-                // Start NewActivity.class
-//                Intent myIntent = new Intent(HomeActivity.this,
-//                        Clubs.class);
-//                startActivity(myIntent);
+                Intent myIntent = new Intent(HomeActivity.this,
+                        Clubs.class);
+                startActivity(myIntent);
             }
         });
 

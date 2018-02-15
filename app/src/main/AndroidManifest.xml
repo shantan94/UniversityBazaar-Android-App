@@ -36,6 +36,12 @@
         <activity android:name=".ProfilePage"
             android:label="ProfilePage"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".MarketPlace"
+            android:label="MarketPlace"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".Clubs"
+            android:label="Clubs"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
