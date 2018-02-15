@@ -8,23 +8,27 @@ import android.os.StrictMode;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.regex.Pattern;
 
 /**
  * Created by shantan on 2/14/2018.
  */
 
-public class ProfilePage extends AppCompatActivity {
+public class ProfilePage extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
     SharedPreferences sharedPreferences;
     ProfileService ps = null;
     EditText name = null;
     EditText age = null;
-    EditText gender = null;
+    Spinner gender = null;
     EditText email = null;
     EditText userid = null;
     EditText number = null;
@@ -36,6 +40,7 @@ public class ProfilePage extends AppCompatActivity {
     String email_value = "";
     String userid_value = "";
     String number_value = "";
+    String value = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -51,12 +56,16 @@ public class ProfilePage extends AppCompatActivity {
         Log.d("dfs",hm.get("name"));
         name = (EditText) findViewById(R.id.name);
         age = (EditText) findViewById(R.id.age);
-        gender = (EditText) findViewById(R.id.gender);
+        gender = (Spinner) findViewById(R.id.gender);
         email = (EditText) findViewById(R.id.email);
         userid = (EditText) findViewById(R.id.userid);
         number = (EditText) findViewById(R.id.number);
         final Button edit = (Button) findViewById(R.id.edit);
         final Button save = (Button) findViewById(R.id.save);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.gender_array, android.R.layout.simple_spinner_dropdown_item);
+        gender.setAdapter(adapter);
+        gender.setOnItemSelectedListener(this);
+        gender.setEnabled(false);
         name_value = hm.get("name").toString();
         age_value = hm.get("age").toString();
         gender_value = hm.get("gender").toString();
@@ -65,7 +74,8 @@ public class ProfilePage extends AppCompatActivity {
         number_value = hm.get("phone").toString();
         name.setText(name_value);
         age.setText(age_value);
-        gender.setText(gender_value);
+        int spinnerPosition = adapter.getPosition(gender_value);
+        gender.setSelection(spinnerPosition);
         email.setText(email_value);
         userid.setText(userid_value);
         number.setText(number_value);
@@ -86,30 +96,53 @@ public class ProfilePage extends AppCompatActivity {
         save.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                name.setEnabled(false);
-                age.setEnabled(false);
-                gender.setEnabled(false);
-                email.setEnabled(false);
-                number.setEnabled(false);
-                if(name_value.equals(name.getText().toString()) && age_value.equals(age.getText().toString()) && gender_value.equals(gender.getText().toString()) && email_value.equals(email.getText().toString()) && userid_value.equals(userid.getText().toString()) && number_value.equals(number.getText().toString())) {
+                if(name_value.equals(name.getText().toString()) && age_value.equals(age.getText().toString()) && gender_value.equals(value) && email_value.equals(email.getText().toString()) && userid_value.equals(userid.getText().toString()) && number_value.equals(number.getText().toString())) {
                     edit.setVisibility(View.VISIBLE);
                     save.setVisibility(View.GONE);
                     Toast.makeText(getApplicationContext(), "Nothing to save all values are same", Toast.LENGTH_SHORT).show();
+                    name.setEnabled(false);
+                    age.setEnabled(false);
+                    gender.setEnabled(false);
+                    email.setEnabled(false);
+                    number.setEnabled(false);
                 }
                 else{
-                    Log.d("email", email.getText().toString());
-                    ps.saveProfile(name.getText().toString(), age.getText().toString(), gender.getText().toString(), email.getText().toString(), userid.getText().toString(), number.getText().toString());
-                    name_value = name.getText().toString();
-                    age_value = age.getText().toString();
-                    gender_value = gender.getText().toString();
-                    email_value = email.getText().toString();
-                    userid_value = userid.getText().toString();
-                    number_value = number.getText().toString();
-                    edit.setVisibility(View.VISIBLE);
-                    save.setVisibility(View.GONE);
-                    Toast.makeText(getApplicationContext(), "Profile Updated", Toast.LENGTH_SHORT).show();
+                    if(name.getText().toString().equals("") || age.getText().toString().equals("") || email.getText().toString().equals("") || number.getText().toString().equals(""))
+                        Toast.makeText(getApplicationContext(), "All fields are required!", Toast.LENGTH_SHORT).show();
+                    else if(!email.getText().toString().endsWith("@mavs.uta.edu"))
+                        Toast.makeText(getApplicationContext(), "Email must end with @mavs.uta.edu", Toast.LENGTH_SHORT).show();
+                    else if(!Pattern.matches("^[0-9]{10}$",number.getText().toString()))
+                        Toast.makeText(getApplicationContext(), "Number must be a number with 10 digits", Toast.LENGTH_SHORT).show();
+                    else {
+                        Log.d("email", email.getText().toString());
+                        ps.saveProfile(name.getText().toString(), age.getText().toString(), value, email.getText().toString(), userid.getText().toString(), number.getText().toString());
+                        name_value = name.getText().toString();
+                        age_value = age.getText().toString();
+                        gender_value = value;
+                        email_value = email.getText().toString();
+                        userid_value = userid.getText().toString();
+                        number_value = number.getText().toString();
+                        edit.setVisibility(View.VISIBLE);
+                        save.setVisibility(View.GONE);
+                        Toast.makeText(getApplicationContext(), "Profile Updated", Toast.LENGTH_SHORT).show();
+                        name.setEnabled(false);
+                        age.setEnabled(false);
+                        gender.setEnabled(false);
+                        email.setEnabled(false);
+                        number.setEnabled(false);
+                    }
                 }
             }
         });
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        value = adapterView.getItemAtPosition(i).toString();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+        return;
     }
 }

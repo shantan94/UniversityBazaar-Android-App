@@ -15,11 +15,10 @@
         android:enabled="false"
         android:id="@+id/age"/>
 
-    <EditText
+    <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:enabled="false"
-        android:id="@+id/gender"/>
+        android:id="@+id/gender"></Spinner>
 
     <EditText
         android:layout_width="match_parent"
