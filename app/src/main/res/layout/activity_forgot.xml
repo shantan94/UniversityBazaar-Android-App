@@ -14,8 +14,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="166dp"
         android:ems="10"
-        android:hint="Email Address"
-        android:text="annmary.jacob@mavs.uta.edu"
+        android:hint="Enter Email Address"
         android:inputType="textEmailAddress" />
 
     <Button
