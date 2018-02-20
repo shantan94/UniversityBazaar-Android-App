@@ -2,6 +2,7 @@ package uta.ubs;
 
 import android.util.Log;
 
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
@@ -11,17 +12,19 @@ import java.io.OutputStreamWriter;
 import java.io.Writer;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Created by shantan on 2/12/2018.
+ * Created by shantan on 2/20/2018.
  */
 
-public class RegisterService {
+public class MessageService {
     String endpoint = "https://univbazaarservices.herokuapp.com";
 
-    public String addUser(String name, int age, String gender, String email, String password, String userid, String phone){
+    public void insertMessage(Message m){
         try{
-            URL url = new URL(endpoint + "/users/register");
+            URL url = new URL(endpoint + "/users/message/insert");
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
             conn.setRequestMethod("POST");
             conn.setDoOutput(true);
@@ -30,13 +33,9 @@ public class RegisterService {
             conn.setAllowUserInteraction(false);
             conn.setRequestProperty("Content-Type", "application/json");
             JSONObject user = new JSONObject();
-            user.put("name", name);
-            user.put("age", age);
-            user.put("gender", gender);
-            user.put("email", email);
-            user.put("password", password);
-            user.put("userid", userid);
-            user.put("phone", phone);
+            user.put("userid", m.getUserid());
+            user.put("message", m.getMessage());
+            user.put("date", m.getDate());
             OutputStream out = conn.getOutputStream();
             Writer writer = new OutputStreamWriter(out, "UTF-8");
             writer.write(user.toString());
@@ -45,43 +44,35 @@ public class RegisterService {
             BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             JSONObject result = new JSONObject(rd.readLine());
             rd.close();
-            conn.disconnect();
-            return result.getString("message");
-        }
-        catch (Exception e){
-            Log.d("fdjk",e.getMessage());
-        }
-        return "Login failed";
-    }
-
-    public String login(String username, String password){
-        try{
-            URL url = new URL(endpoint + "/users/login");
-            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-            conn.setRequestMethod("POST");
-            conn.setDoOutput(true);
-            conn.setDoInput(true);
-            conn.setUseCaches(false);
-            conn.setAllowUserInteraction(false);
-            conn.setRequestProperty("Content-Type", "application/json");
-            JSONObject user = new JSONObject();
-            user.put("userid", username);
-            user.put("password", password);
-            OutputStream out = conn.getOutputStream();
-            Writer writer = new OutputStreamWriter(out, "UTF-8");
-            writer.write(user.toString());
-            writer.close();
-            out.close();
-            BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
-            JSONObject result = new JSONObject(rd.readLine());
-            rd.close();
-            conn.disconnect();
-            return result.getString("message");
         }
         catch (Exception e){
             e.printStackTrace();
         }
-        return "Failed";
+    }
+
+    public ArrayList<Message> getMessages(){
+        ArrayList<Message> temp = new ArrayList<>();
+        try{
+            URL url = new URL(endpoint + "/users/message");
+            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            conn.setUseCaches(false);
+            conn.setAllowUserInteraction(false);
+            BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            JSONObject result = new JSONObject(rd.readLine());
+            JSONArray tempres = result.getJSONArray("data");
+            for (int i = 0;i < tempres.length();i++) {
+                Message m = new Message(tempres.getJSONObject(i).getString("message"), tempres.getJSONObject(i).getString("userid"), tempres.getJSONObject(i).getString("time"));
+                temp.add(m);
+            }
+            rd.close();
+            return temp;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return temp;
     }
 }
-

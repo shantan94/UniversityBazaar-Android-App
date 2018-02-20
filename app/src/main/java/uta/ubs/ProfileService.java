@@ -49,6 +49,8 @@ public class ProfileService {
             hm.put("gender", data.getString("gender"));
             hm.put("email", data.getString("email"));
             hm.put("phone", data.getString("phone"));
+            rd.close();
+            conn.disconnect();
             return hm;
         }
         catch (Exception e){
@@ -83,6 +85,8 @@ public class ProfileService {
             BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
             JSONObject result = new JSONObject(rd.readLine());
             Log.d("status", result.toString());
+            rd.close();
+            conn.disconnect();
         }
         catch (Exception e){
             e.getStackTrace();

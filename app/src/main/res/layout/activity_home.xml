@@ -36,7 +36,7 @@ android:layout_height="match_parent" >
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/chat"
+        android:layout_below="@+id/chat_text"
         android:layout_marginTop="54dp"
         android:layout_toStartOf="@+id/button"
         android:text="MarketPlace" />
@@ -58,22 +58,40 @@ android:layout_height="match_parent" >
         android:layout_toStartOf="@+id/button3"
         android:text="Profile page" />
 
-    <TextView
+    <ListView
         android:id="@+id/textView2"
         android:layout_width="match_parent"
-        android:layout_height="150dp"
+        android:layout_height="250dp"
         android:layout_alignParentStart="true"
-        android:layout_alignTop="@+id/scrollView1"
-        android:text="Notice Board" />
+        android:layout_below="@+id/scrollView1"
+        android:divider="@null"
+        android:dividerHeight="0dp"
+        android:transcriptMode="alwaysScroll"
+        android:stackFromBottom="true"/>
 
-    <EditText
-        android:id="@+id/chat"
+    <LinearLayout
+        android:id="@+id/chat_text"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView2"
-        android:layout_marginTop="61dp"
-        android:text="Enter text to post" />
+        android:layout_height="50dp"
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/textView2">
+
+        <EditText
+            android:id="@+id/chat"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/textView2"
+            android:hint="Enter text to post"
+            android:layout_weight="200"/>
+
+        <Button
+            android:id="@+id/send"
+            android:text="Send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"/>
+    </LinearLayout>
 
     <Button
         android:id="@+id/button"
