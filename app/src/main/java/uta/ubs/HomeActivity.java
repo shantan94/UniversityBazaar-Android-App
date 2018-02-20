@@ -4,6 +4,7 @@ package uta.ubs;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
@@ -55,6 +56,8 @@ public class HomeActivity extends AppCompatActivity {
         button2 = (Button) findViewById(R.id.button2);
         chat = (EditText) findViewById(R.id.chat);
         send.setEnabled(false);
+        HomeActivity.AsyncTaskRunner  runner = new HomeActivity.AsyncTaskRunner();
+        runner.execute();
 
         chat.addTextChangedListener(new TextWatcher() {
             @Override
@@ -121,6 +124,36 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(myIntent);
             }
         });
+    }
+
+    private class AsyncTaskRunner extends AsyncTask<Void, Void, Void> {
+        ArrayList<Message> list1;
+
+        @Override
+        protected Void doInBackground(Void... voids) {
+            while (true) {
+                list1 = new ArrayList<>();
+                try {
+                    Log.d("here", "in here");
+                    Thread.sleep(2000);
+                    if(curtime.contains("T")) {
+                        String[] temparr = curtime.split("T");
+                        String[] temparr1 = temparr[1].split("\\.");
+                        String finaltime = temparr[0] + " " + temparr1[0];
+                        list1 = ms.getMessagesAfterTime(finaltime);
+                    }
+                    else
+                        list1 = ms.getMessagesAfterTime(curtime);
+                    if(list1.size() != 0) {
+                        curtime = list1.get(list1.size() - 1).getDate();
+                        list.addAll(list1);
+                        ca.notifyDataSetChanged();
+                    }
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
     }
 
     public String getCurrentTime(){
