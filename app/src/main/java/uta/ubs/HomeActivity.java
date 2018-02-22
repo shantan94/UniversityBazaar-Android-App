@@ -147,7 +147,7 @@ public class HomeActivity extends AppCompatActivity {
                     if(list1.size() != 0) {
                         curtime = list1.get(list1.size() - 1).getDate();
                         list.addAll(list1);
-                        ca.notifyDataSetChanged();
+                        updateListView();
                     }
                 } catch (InterruptedException e) {
                     e.printStackTrace();
@@ -161,5 +161,14 @@ public class HomeActivity extends AppCompatActivity {
         Date now = new Date();
         String strDate = sdfDate.format(now);
         return strDate;
+    }
+
+    public void updateListView(){
+        runOnUiThread(new Runnable() {
+            @Override
+            public void run() {
+                ca.notifyDataSetChanged();
+            }
+        });
     }
 }

@@ -4,7 +4,7 @@
     android:layout_height="wrap_content">
     <LinearLayout
         android:id="@+id/content"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentLeft="true"
         android:orientation="vertical">
@@ -14,10 +14,11 @@
             android:id="@+id/userid"/>
         <LinearLayout
             android:id="@+id/contentWithBackground"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:background="@drawable/other"
+            android:textAlignment="center"
             android:paddingLeft="10dp"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"
@@ -26,15 +27,15 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/message"
-                android:maxWidth="240dp"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_horizontal"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/date"
                 android:textSize="8dp"
-                android:maxWidth="240dp"
-                android:layout_marginLeft="10dp"/>
+                android:layout_marginLeft="10dp"
+                android:layout_gravity="center_horizontal"/>
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>
