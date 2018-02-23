@@ -6,4 +6,9 @@
         <item>Male</item>
         <item>Female</item>
     </string-array>
+    <string-array name="type_array">
+        <item>Sell</item>
+        <item>Lend</item>
+        <item>Exchange</item>
+    </string-array>
 </resources>

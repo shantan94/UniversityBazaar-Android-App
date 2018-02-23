@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -37,8 +38,10 @@ public class HomeActivity extends AppCompatActivity {
     Message m;
     MessageService ms;
     ChatAdapter ca;
+    TextView count;
     String id = "";
     String curtime = "";
+    int chatSize = 300;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +54,8 @@ public class HomeActivity extends AppCompatActivity {
         list = new ArrayList<>(templist);
         curtime = list.get(list.size() - 1).getDate();
         ca = new ChatAdapter(this, list, id);
+        count = (TextView) findViewById(R.id.count);
+        count.setText(0 + "/" + chatSize);
         lv.setAdapter(ca);
         send = (Button) findViewById(R.id.send);
         button2 = (Button) findViewById(R.id.button2);
@@ -71,6 +76,8 @@ public class HomeActivity extends AppCompatActivity {
                     send.setEnabled(false);
                 else
                     send.setEnabled(true);
+                int strlen = chat.getText().toString().length();
+                count.setText(strlen + "/" + chatSize);
             }
 
             @Override

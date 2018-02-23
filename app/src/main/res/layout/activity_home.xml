@@ -83,6 +83,7 @@ android:layout_height="match_parent" >
             android:layout_alignParentStart="true"
             android:layout_below="@+id/textView2"
             android:hint="Enter text to post"
+            android:maxLength="255"
             android:layout_weight="200"/>
 
         <Button
@@ -92,6 +93,14 @@ android:layout_height="match_parent" >
             android:layout_height="wrap_content"
             android:layout_weight="1"/>
     </LinearLayout>
+
+    <TextView
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/count"
+        android:layout_below="@+id/chat_text"
+        android:textColor="@color/grey_400"
+        android:textSize="10dp"/>
 
     <Button
         android:id="@+id/button"
