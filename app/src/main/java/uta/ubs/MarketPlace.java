@@ -13,17 +13,27 @@ import android.widget.Button;
 public class MarketPlace extends AppCompatActivity {
 
     Button list_item;
+    Button buy_item;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_marketplace);
         list_item = (Button) findViewById(R.id.list_item);
+        buy_item = (Button) findViewById(R.id.sell_item);
 
         list_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent next = new Intent(getApplicationContext(), ListItemPage.class);
+                startActivity(next);
+            }
+        });
+
+        buy_item.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent next = new Intent(getApplicationContext(), SellActivity.class);
                 startActivity(next);
             }
         });

@@ -9,4 +9,10 @@
         android:id="@+id/list_item"
         android:text="List Items Post"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/sell_item"
+        android:text="Buy Items"/>
+
 </LinearLayout>

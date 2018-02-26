@@ -71,8 +71,18 @@ public class ListItemPage extends AppCompatActivity implements AdapterView.OnIte
                     String status = is.postitem(id, name.getText().toString(), description.getText().toString(), selected_image, value, price.getText().toString());
                     if(status.equals("Success")) {
                         Toast.makeText(getApplicationContext(), "Item Updated", Toast.LENGTH_SHORT).show();
-                        Intent next = new Intent(getApplicationContext(), MarketPlace.class);
-                        startActivity(next);
+                        if(value.equals("Sell")) {
+                            Intent next = new Intent(getApplicationContext(), SellActivity.class);
+                            startActivity(next);
+                        }
+                        else if(value.equals("Exchange")){
+                            Intent next = new Intent(getApplicationContext(), ExchangeActivity.class);
+                            startActivity(next);
+                        }
+                        else{
+                            Intent next = new Intent(getApplicationContext(), LendActivity.class);
+                            startActivity(next);
+                        }
                     }
                     else
                         Toast.makeText(getApplicationContext(), "Failed to update item", Toast.LENGTH_SHORT).show();

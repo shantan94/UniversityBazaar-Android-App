@@ -45,6 +45,15 @@
         <activity android:name=".ListItemPage"
             android:label="ListItemPage"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".SellActivity"
+            android:label="SellActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".LendActivity"
+            android:label="LendActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".ExchangeActivity"
+            android:label="ExchangeActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>
