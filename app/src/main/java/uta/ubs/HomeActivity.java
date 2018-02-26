@@ -138,7 +138,8 @@ public class HomeActivity extends AppCompatActivity {
 
         @Override
         protected Void doInBackground(Void... voids) {
-            while (true) {
+            return null;
+            /*while (true) {
                 list1 = new ArrayList<>();
                 try {
                     Log.d("here", "in here");
@@ -159,7 +160,7 @@ public class HomeActivity extends AppCompatActivity {
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
-            }
+            }*/
         }
     }
 
