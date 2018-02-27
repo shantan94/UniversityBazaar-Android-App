@@ -9,6 +9,8 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.squareup.picasso.Picasso;
+
 import java.net.URL;
 import java.util.ArrayList;
 
@@ -36,8 +38,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         TextView price = (TextView) itemView.findViewById(R.id.price);
         TextView userid = (TextView) itemView.findViewById(R.id.userid);
         try {
-            URL url = new URL("https://s3-us-west-2.amazonaws.com/item-bucket/" + values.get(position).getImage());
-            image.setImageBitmap(BitmapFactory.decodeStream(url.openConnection().getInputStream()));
+            Picasso.with(context).load("https://s3-us-west-2.amazonaws.com/item-bucket/" + values.get(position).getImage()).into(image);
             item_name.setText(values.get(position).getItemname());
             description.setText(values.get(position).getDescription());
             price.setText(values.get(position).getPrice());
