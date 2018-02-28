@@ -15,4 +15,16 @@
         android:id="@+id/sell_item"
         android:text="Buy Items"/>
 
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/lend_item"
+        android:text="Borrow Items"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/exchange_item"
+        android:text="Exchange Items"/>
+
 </LinearLayout>
