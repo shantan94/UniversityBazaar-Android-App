@@ -39,6 +39,7 @@ public class HomeActivity extends AppCompatActivity {
     MessageService ms;
     ChatAdapter ca;
     TextView count;
+    boolean done = true;
     String id = "";
     String curtime = "";
     int chatSize = 300;
@@ -133,15 +134,30 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        done = false;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        done = true;
+        HomeActivity.AsyncTaskRunner runner = new HomeActivity.AsyncTaskRunner();
+        runner.execute();
+    }
+
     private class AsyncTaskRunner extends AsyncTask<Void, Void, Void> {
         ArrayList<Message> list1;
 
         @Override
         protected Void doInBackground(Void... voids) {
-            while (true) {
+            while (done) {
                 list1 = new ArrayList<>();
                 try {
                     Log.d("here", "in here");
+                    System.out.println("in here");
                     Thread.sleep(2000);
                     if(curtime.contains("T")) {
                         String[] temparr = curtime.split("T");
@@ -160,6 +176,7 @@ public class HomeActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
+            return null;
         }
     }
 

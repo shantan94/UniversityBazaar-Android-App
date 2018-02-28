@@ -32,6 +32,7 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".HomeActivity"
             android:label="HomeActivity"
+            android:launchMode="singleTask"
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".ProfilePage"
             android:label="ProfilePage"
@@ -53,6 +54,15 @@
             android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".ExchangeActivity"
             android:label="ExchangeActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".ExchangeActivityDetails"
+            android:label="ExchangeActivityDetails"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".LendActivityDetails"
+            android:label="LendActivityDetails"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".BuyActivityDetails"
+            android:label="BuyActivityDetails"
             android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 

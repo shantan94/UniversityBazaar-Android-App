@@ -1,30 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:background="@drawable/list_item"
+        android:layout_width="180dp"
+        android:layout_height="275dp"
         android:id="@+id/list_item"
-        android:text="List Items Post"/>
+        android:layout_margin="3dp"/>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:background="@drawable/sell_item"
+        android:layout_width="200dp"
+        android:layout_height="275dp"
         android:id="@+id/sell_item"
-        android:text="Buy Items"/>
+        android:layout_toRightOf="@+id/list_item"
+        android:layout_margin="3dp"/>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:background="@drawable/lend"
+        android:layout_width="180dp"
+        android:layout_height="275dp"
         android:id="@+id/lend_item"
-        android:text="Borrow Items"/>
+        android:layout_below="@+id/list_item"
+        android:layout_margin="3dp"/>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <ImageButton
+        android:background="@drawable/exchange"
+        android:layout_width="200dp"
+        android:layout_height="275dp"
         android:id="@+id/exchange_item"
-        android:text="Exchange Items"/>
+        android:layout_toRightOf="@+id/lend_item"
+        android:layout_below="@+id/sell_item"
+        android:layout_margin="3dp"/>
 
-</LinearLayout>
+</RelativeLayout>

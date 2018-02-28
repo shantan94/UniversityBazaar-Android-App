@@ -51,6 +51,12 @@
                 android:layout_alignParentRight="true"
                 android:layout_below="@+id/price"/>
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/imageid"
+                android:visibility="gone"/>
+
         </RelativeLayout>
 
     </android.support.v7.widget.CardView>

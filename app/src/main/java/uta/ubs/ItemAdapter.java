@@ -2,6 +2,8 @@ package uta.ubs;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
+import android.os.Build;
+import android.os.StrictMode;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +32,10 @@ public class ItemAdapter extends ArrayAdapter<Item> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
+        if(Build.VERSION.SDK_INT>9){
+            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
+            StrictMode.setThreadPolicy(policy);
+        }
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         View itemView = inflater.inflate(R.layout.activity_item_list, parent, false);
         ImageView image = (ImageView) itemView.findViewById(R.id.image);
@@ -37,12 +43,14 @@ public class ItemAdapter extends ArrayAdapter<Item> {
         TextView description = (TextView) itemView.findViewById(R.id.description);
         TextView price = (TextView) itemView.findViewById(R.id.price);
         TextView userid = (TextView) itemView.findViewById(R.id.userid);
+        TextView imageid = (TextView) itemView.findViewById(R.id.imageid);
         try {
             Picasso.with(context).load("https://s3-us-west-2.amazonaws.com/item-bucket/" + values.get(position).getImage()).into(image);
             item_name.setText(values.get(position).getItemname());
             description.setText(values.get(position).getDescription());
             price.setText(values.get(position).getPrice());
             userid.setText(values.get(position).getUserid());
+            imageid.setText(values.get(position).getImage());
         }
         catch (Exception e){
             e.printStackTrace();
