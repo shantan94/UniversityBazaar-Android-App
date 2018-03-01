@@ -48,7 +48,7 @@ public class ItemAdapter extends ArrayAdapter<Item> {
             Picasso.with(context).load("https://s3-us-west-2.amazonaws.com/item-bucket/" + values.get(position).getImage()).into(image);
             item_name.setText(values.get(position).getItemname());
             description.setText(values.get(position).getDescription());
-            price.setText(values.get(position).getPrice());
+            price.setText("$" + values.get(position).getPrice() + ".00");
             userid.setText(values.get(position).getUserid());
             imageid.setText(values.get(position).getImage());
         }
