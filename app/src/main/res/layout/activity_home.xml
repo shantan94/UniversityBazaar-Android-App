@@ -1,114 +1,122 @@
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:id="@+id/rl"
-android:layout_width="match_parent"
-android:layout_height="match_parent" >
-
-<TextView
-    android:id="@+id/textView1"
-    android:textSize="25dp"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:layout_alignParentTop="true"
-    android:layout_centerHorizontal="true"
-    android:layout_marginTop="20dp" />
-
-<ScrollView
-    android:id="@+id/scrollView1"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_below="@+id/textView1"
-    android:layout_centerHorizontal="true"
-    android:layout_marginTop="30dp" >
-
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_height="match_parent"
+    android:layout_width="match_parent">
     <LinearLayout
-        android:id="@+id/linear1"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
+        <RelativeLayout
+            android:id="@+id/rl"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" >
+
+            <TextView
+                android:id="@+id/textView1"
+                android:textSize="25dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="20dp" />
+
+            <ScrollView
+                android:id="@+id/scrollView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/textView1"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="30dp" >
+
+                <LinearLayout
+                    android:id="@+id/linear1"
+                    android:orientation="vertical"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
 
 
+                </LinearLayout>
+
+            </ScrollView>
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/chat_text"
+                android:layout_marginTop="54dp"
+                android:layout_toStartOf="@+id/button"
+                android:text="MarketPlace" />
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/button2"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="26dp"
+                android:text="Clubs" />
+
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_toStartOf="@+id/button3"
+                android:text="Profile page" />
+
+            <ListView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_alignParentStart="true"
+                android:layout_below="@+id/scrollView1"
+                android:divider="@null"
+                android:dividerHeight="0dp"
+                android:transcriptMode="alwaysScroll"
+                android:stackFromBottom="true"/>
+
+            <LinearLayout
+                android:id="@+id/chat_text"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="20dp"
+                android:layout_below="@+id/textView2">
+
+                <EditText
+                    android:id="@+id/chat"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentStart="true"
+                    android:layout_below="@+id/textView2"
+                    android:hint="Enter text to post"
+                    android:maxLength="255"
+                    android:layout_weight="200"/>
+
+                <Button
+                    android:id="@+id/send"
+                    android:text="Send"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"/>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="80dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/count"
+                android:layout_below="@+id/chat_text"
+                android:textColor="@color/grey_400"
+                android:textSize="10dp"/>
+
+            <Button
+                android:id="@+id/button"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="42dp"
+                android:text="Logout" />
+
+        </RelativeLayout>
     </LinearLayout>
-
 </ScrollView>
-
-    <Button
-        android:id="@+id/button2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/chat_text"
-        android:layout_marginTop="54dp"
-        android:layout_toStartOf="@+id/button"
-        android:text="MarketPlace" />
-
-    <Button
-        android:id="@+id/button3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/button2"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="26dp"
-        android:text="Clubs" />
-
-    <Button
-        android:id="@+id/button4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_toStartOf="@+id/button3"
-        android:text="Profile page" />
-
-    <ListView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="250dp"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/scrollView1"
-        android:divider="@null"
-        android:dividerHeight="0dp"
-        android:transcriptMode="alwaysScroll"
-        android:stackFromBottom="true"/>
-
-    <LinearLayout
-        android:id="@+id/chat_text"
-        android:layout_width="match_parent"
-        android:layout_height="50dp"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/textView2">
-
-        <EditText
-            android:id="@+id/chat"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/textView2"
-            android:hint="Enter text to post"
-            android:maxLength="255"
-            android:layout_weight="200"/>
-
-        <Button
-            android:id="@+id/send"
-            android:text="Send"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"/>
-    </LinearLayout>
-
-    <TextView
-        android:layout_width="80dp"
-        android:layout_height="wrap_content"
-        android:id="@+id/count"
-        android:layout_below="@+id/chat_text"
-        android:textColor="@color/grey_400"
-        android:textSize="10dp"/>
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginEnd="42dp"
-        android:text="Logout" />
-
-</RelativeLayout>
