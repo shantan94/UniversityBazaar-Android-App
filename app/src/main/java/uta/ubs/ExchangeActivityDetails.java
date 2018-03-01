@@ -2,10 +2,9 @@ package uta.ubs;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -24,6 +23,7 @@ public class ExchangeActivityDetails extends AppCompatActivity {
     TextView userid;
     ImageView image;
     Context context;
+    Button button;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -42,5 +42,16 @@ public class ExchangeActivityDetails extends AppCompatActivity {
         price.setText(b.getString("price"));
         userid.setText(b.getString("userid"));
         Picasso.with(context).load("https://s3-us-west-2.amazonaws.com/item-bucket/" + b.getString("imageid")).into(image);
+
+        button = (Button) findViewById(R.id.exchange);
+
+        // Capture button clicks
+        button.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View arg0) {
+                Intent myIntent = new Intent(ExchangeActivityDetails.this,
+                        NegotiateChat.class);
+                startActivity(myIntent);
+            }
+        });
     }
 }
