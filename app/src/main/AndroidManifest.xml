@@ -68,6 +68,9 @@
         <activity android:name=".NegotiateChat"
             android:label="Chat"
             android:theme="@style/AppTheme"/>
+        <activity android:name=".ResetPasswordActivity"
+            android:label="Reset Password"
+            android:theme="@style/AppTheme"/>
     </application>
 
 </manifest>

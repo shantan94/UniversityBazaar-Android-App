@@ -83,5 +83,37 @@ public class RegisterService {
         }
         return "Failed";
     }
+
+    public String reset(String username,String NewPassword){
+        try{
+            URL url = new URL(endpoint + "/users/reset");
+            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            conn.setUseCaches(false);
+            conn.setAllowUserInteraction(false);
+            conn.setRequestProperty("Content-Type", "application/json");
+            JSONObject user = new JSONObject();
+            user.put("username", username);
+            user.put("password", NewPassword);
+
+            OutputStream out = conn.getOutputStream();
+            Writer writer = new OutputStreamWriter(out, "UTF-8");
+            writer.write(user.toString());
+            writer.close();
+            out.close();
+            BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            JSONObject result = new JSONObject(rd.readLine());
+            rd.close();
+            conn.disconnect();
+            return result.getString("message");
+        }
+        catch (Exception e){
+            Log.d("fdjk",e.getMessage());
+        }
+        return "Login failed";
+    }
+
 }
 
