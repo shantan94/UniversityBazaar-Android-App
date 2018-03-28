@@ -29,6 +29,7 @@ public class HomeActivity extends AppCompatActivity {
     Button button2;
     Button button3;
     Button button4;
+    Button button5;
     ArrayList<Message> list = new ArrayList<>();
     ArrayList<Message> templist = new ArrayList<>();
     ListView lv;
@@ -129,6 +130,16 @@ public class HomeActivity extends AppCompatActivity {
                 Intent myIntent = new Intent(HomeActivity.this,
                         ProfilePage.class);
                 startActivity(myIntent);
+            }
+        });
+
+        button5 = (Button) findViewById(R.id.reset);
+
+        button5.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent next = new Intent(getApplicationContext(), ResetPasswordActivity.class);
+                startActivity(next);
             }
         });
     }

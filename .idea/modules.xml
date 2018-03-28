@@ -2,11 +2,8 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://D:\app\UniversityBazaar-Android-App\UBS.iml" filepath="D:\app\UniversityBazaar-Android-App\UBS.iml" />
-      <module fileurl="file://$PROJECT_DIR$/UniversityBazaar-Android-App.iml" filepath="$PROJECT_DIR$/UniversityBazaar-Android-App.iml" />
-      <module fileurl="file://D:\app\UniversityBazaar-Android-App\UniversityBazaar-Android-App.iml" filepath="D:\app\UniversityBazaar-Android-App\UniversityBazaar-Android-App.iml" />
+      <module fileurl="file://$PROJECT_DIR$/UBS.iml" filepath="$PROJECT_DIR$/UBS.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
-      <module fileurl="file://D:\app\UniversityBazaar-Android-App\app\app.iml" filepath="D:\app\UniversityBazaar-Android-App\app\app.iml" />
     </modules>
   </component>
 </project>

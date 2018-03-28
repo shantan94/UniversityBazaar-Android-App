@@ -88,16 +88,15 @@ public class RegisterService {
         try{
             URL url = new URL(endpoint + "/users/reset");
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
-            conn.setRequestMethod("POST");
+            conn.setRequestMethod("PUT");
             conn.setDoOutput(true);
             conn.setDoInput(true);
             conn.setUseCaches(false);
             conn.setAllowUserInteraction(false);
             conn.setRequestProperty("Content-Type", "application/json");
             JSONObject user = new JSONObject();
-            user.put("username", username);
+            user.put("userid", username);
             user.put("password", NewPassword);
-
             OutputStream out = conn.getOutputStream();
             Writer writer = new OutputStreamWriter(out, "UTF-8");
             writer.write(user.toString());
@@ -110,9 +109,9 @@ public class RegisterService {
             return result.getString("message");
         }
         catch (Exception e){
-            Log.d("fdjk",e.getMessage());
+            e.printStackTrace();
         }
-        return "Login failed";
+        return "Reset Failed";
     }
 
 }

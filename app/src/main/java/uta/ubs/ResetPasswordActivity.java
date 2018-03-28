@@ -19,17 +19,19 @@ import android.widget.Toast;
 
 public class ResetPasswordActivity extends AppCompatActivity {
     RegisterService rs = null;
+    Button Reset;
     static String MyPREFERENCES = "Session Values";
     SharedPreferences sharedPreferences;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_reset_password);
         if (Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
         }
-        Button Reset = (Button) findViewById(R.id.Reset);
-        final EditText userid = (EditText) findViewById(R.id.userid);
+        Reset = (Button) findViewById(R.id.Reset);
+        final EditText userid = (EditText) findViewById(R.id.usernameData);
         final EditText CurrentPasswordData = (EditText) findViewById(R.id.CurrentPasswordData);
         final EditText NewPasswordData = (EditText) findViewById(R.id.NewPasswordData);
         final EditText ConfirmPasswordData = (EditText) findViewById(R.id.ConfirmPasswordData);
@@ -46,7 +48,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
                 if (status.equals("Passed")) {
                     if (NewPassword.equals(ConfirmPassword)) {
                         String status1 = rs.reset(username,NewPassword);
-                        Toast.makeText(getApplicationContext(), "Successfully changed password", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(getApplicationContext(), status1, Toast.LENGTH_SHORT).show();
                         Intent next = new Intent(getApplicationContext(), HomeActivity.class);
                         startActivity(next);
 
