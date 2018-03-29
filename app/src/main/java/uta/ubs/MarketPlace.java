@@ -1,7 +1,6 @@
 package uta.ubs;
 
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -18,6 +17,7 @@ public class MarketPlace extends AppCompatActivity {
     ImageButton buy_item;
     ImageButton lend_item;
     ImageButton exchange_item;
+    Button myitems;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +27,7 @@ public class MarketPlace extends AppCompatActivity {
         buy_item = (ImageButton) findViewById(R.id.sell_item);
         lend_item = (ImageButton) findViewById(R.id.lend_item);
         exchange_item = (ImageButton) findViewById(R.id.exchange_item);
+        myitems = (Button) findViewById(R.id.myitems);
 
         list_item.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -56,6 +57,14 @@ public class MarketPlace extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 Intent next = new Intent(getApplicationContext(), ExchangeActivity.class);
+                startActivity(next);
+            }
+        });
+
+        myitems.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent next = new Intent(getApplicationContext(), MyItemsActivity.class);
                 startActivity(next);
             }
         });

@@ -2,7 +2,6 @@ package uta.ubs;
 
 import android.graphics.Bitmap;
 import android.util.Base64;
-import android.util.Log;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -74,6 +73,41 @@ public class ItemService {
             conn.setRequestProperty("Content-Type", "application/json");
             JSONObject user = new JSONObject();
             user.put("type", type);
+            OutputStream out = conn.getOutputStream();
+            Writer writer = new OutputStreamWriter(out, "UTF-8");
+            writer.write(user.toString());
+            writer.close();
+            out.close();
+            BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            JSONObject result = new JSONObject(rd.readLine());
+            JSONArray tempres = result.getJSONArray("data");
+            for(int i = 0;i < tempres.length();i++){
+                Item it = new Item(tempres.getJSONObject(i).getString("userid"), tempres.getJSONObject(i).getString("itemname"), tempres.getJSONObject(i).getString("description"), tempres.getJSONObject(i).getString("image"), tempres.getJSONObject(i).getString("type"), tempres.getJSONObject(i).getString("price"));
+                templist.add(it);
+            }
+            rd.close();
+            return templist;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return templist;
+    }
+
+    public ArrayList<Item> getMyItems(String type, String userid){
+        ArrayList<Item> templist = new ArrayList<>();
+        try{
+            URL url = new URL(endpoint + "/users/getmyitems");
+            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            conn.setUseCaches(false);
+            conn.setAllowUserInteraction(false);
+            conn.setRequestProperty("Content-Type", "application/json");
+            JSONObject user = new JSONObject();
+            user.put("type", type);
+            user.put("userid", userid);
             OutputStream out = conn.getOutputStream();
             Writer writer = new OutputStreamWriter(out, "UTF-8");
             writer.write(user.toString());

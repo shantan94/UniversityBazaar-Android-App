@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -13,7 +14,7 @@ import java.util.ArrayList;
  * Created by shantan on 2/14/2018.
  */
 
-public class Clubs extends AppCompatActivity {
+public class Clubs extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     Button create;
     ListView lv;
@@ -31,6 +32,7 @@ public class Clubs extends AppCompatActivity {
         list = cs.getClubs();
         ca = new ClubAdapter(this, list);
         lv.setAdapter(ca);
+        lv.setOnItemClickListener(this);
 
         create.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -39,5 +41,12 @@ public class Clubs extends AppCompatActivity {
                 startActivity(next);
             }
         });
+    }
+
+
+    @Override
+    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        Intent next = new Intent(getApplicationContext(), ClubDetails.class);
+        startActivity(next);
     }
 }
