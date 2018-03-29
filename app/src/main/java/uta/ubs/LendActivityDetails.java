@@ -2,6 +2,7 @@ package uta.ubs;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -20,9 +21,12 @@ public class LendActivityDetails extends AppCompatActivity {
     TextView description;
     TextView price;
     TextView userid;
+    String id;
     ImageView image;
     Context context;
+    SharedPreferences sharedPreferences;
     Button button;
+    Bundle b;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -30,7 +34,9 @@ public class LendActivityDetails extends AppCompatActivity {
         setContentView(R.layout.activity_lend_details);
         Intent current = this.getIntent();
         context = this;
-        Bundle b = current.getExtras();
+        b = current.getExtras();
+        sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+        id = sharedPreferences.getString("userid",null).toString();
         itemname = (TextView) findViewById(R.id.item_name);
         description = (TextView) findViewById(R.id.description);
         price = (TextView) findViewById(R.id.price);
@@ -43,12 +49,19 @@ public class LendActivityDetails extends AppCompatActivity {
         Picasso.with(context).load("https://s3-us-west-2.amazonaws.com/item-bucket/" + b.getString("imageid")).into(image);
 
         button = (Button) findViewById(R.id.lend);
+        if(id.equals(userid.getText().toString()))
+            button.setVisibility(View.GONE);
 
         // Capture button clicks
         button.setOnClickListener(new View.OnClickListener() {
             public void onClick(View arg0) {
+                Bundle b1 = new Bundle();
+                b1.putString("curuser", id);
+                b1.putString("nextuser", userid.getText().toString());
+                b1.putString("imageid", b.getString("imageid"));
                 Intent myIntent = new Intent(LendActivityDetails.this,
                         NegotiateChat.class);
+                myIntent.putExtras(b1);
                 startActivity(myIntent);
             }
         });

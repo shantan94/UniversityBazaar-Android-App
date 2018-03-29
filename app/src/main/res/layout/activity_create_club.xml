@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <EditText
+        android:layout_width="335dp"
+        android:layout_height="wrap_content"
+        android:hint="Club Name"
+        android:layout_gravity="center"
+        android:id="@+id/Cname"/>
+
+    <EditText
+        android:layout_width="343dp"
+        android:layout_height="165dp"
+        android:singleLine="false"
+        android:layout_gravity="center"
+        android:hint="Enter description, timings etc."
+        android:id="@+id/Cdes"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="SUBMIT"
+        android:layout_gravity="center"
+        android:id="@+id/Csubmit"/>
+
+</LinearLayout>
