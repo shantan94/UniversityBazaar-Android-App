@@ -1,6 +1,7 @@
 package uta.ubs;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -56,16 +57,11 @@ public class MyItemsActivity extends AppCompatActivity implements AdapterView.On
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-        TextView itemname = (TextView) view.findViewById(R.id.item_name);
-        TextView description = (TextView) view.findViewById(R.id.description);
-        TextView price = (TextView) view.findViewById(R.id.price);
-        TextView userid = (TextView) view.findViewById(R.id.userid);
         TextView imageid = (TextView) view.findViewById(R.id.imageid);
         Bundle b = new Bundle();
-        b.putString("itemname", itemname.getText().toString());
-        b.putString("description", description.getText().toString());
-        b.putString("price", price.getText().toString());
-        b.putString("userid", userid.getText().toString());
         b.putString("imageid", imageid.getText().toString());
+        Intent next = new Intent(getApplicationContext(), ItemsChat.class);
+        next.putExtras(b);
+        startActivity(next);
     }
 }

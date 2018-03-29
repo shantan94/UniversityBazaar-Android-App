@@ -1,5 +1,7 @@
 package uta.ubs;
 
+import android.widget.ArrayAdapter;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -76,6 +78,43 @@ public class NegotiateService {
                 for (int i = 0; i < tempres.length(); i++) {
                     Negotiate n = new Negotiate(tempres.getJSONObject(i).getString("message"), tempres.getJSONObject(i).getString("from"), tempres.getJSONObject(i).getString("to"), tempres.getJSONObject(i).getString("time"), tempres.getJSONObject(i).getString("imageid"));
                     temp.add(n);
+                }
+            }
+            rd.close();
+            return temp;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return temp;
+    }
+
+    public ArrayList<MyNegotiations> getMyNegotiations(String imageid, String userid){
+        ArrayList<MyNegotiations> temp = new ArrayList<>();
+        try{
+            URL url = new URL(endpoint + "/users/getmyusernegotiate");
+            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            conn.setUseCaches(false);
+            conn.setAllowUserInteraction(false);
+            conn.setRequestProperty("Content-Type", "application/json");
+            JSONObject user = new JSONObject();
+            user.put("userid", userid);
+            user.put("imageid", imageid);
+            OutputStream out = conn.getOutputStream();
+            Writer writer = new OutputStreamWriter(out, "UTF-8");
+            writer.write(user.toString());
+            writer.close();
+            out.close();
+            BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            JSONObject result = new JSONObject(rd.readLine());
+            if(result.has("data")) {
+                JSONArray tempres = result.getJSONArray("data");
+                for (int i = 0; i < tempres.length(); i++) {
+                    MyNegotiations mn = new MyNegotiations("", tempres.getJSONObject(i).getString("from"));
+                    temp.add(mn);
                 }
             }
             rd.close();
