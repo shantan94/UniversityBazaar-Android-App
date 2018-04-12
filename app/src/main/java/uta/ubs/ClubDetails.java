@@ -1,6 +1,8 @@
 package uta.ubs;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
@@ -23,7 +25,9 @@ public class ClubDetails extends AppCompatActivity {
     ArrayList<String> list;
     ClubService cs;
     Button b1;
+    SharedPreferences sharedPreferences;
     RelativeLayout rl;
+    String id;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -38,7 +42,9 @@ public class ClubDetails extends AppCompatActivity {
         list = cs.checkIfMember(b.getString("name"));
         b1 = (Button) findViewById(R.id.join);
         rl = (RelativeLayout) findViewById(R.id.relative);
-        if(list.contains(b.getString("userid"))){
+        sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+        id = sharedPreferences.getString("userid",null).toString();
+        if(list.contains(id)){
             b1.setVisibility(View.GONE);
             rl.setVisibility(View.VISIBLE);
         }
@@ -46,7 +52,8 @@ public class ClubDetails extends AppCompatActivity {
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String status = cs.insertClubMember(b.getString("name"), b.getString("userid"));
+                String status = cs.insertClubMember(b.getString("name"), id);
+                System.out.println(status);
                 Toast.makeText(getApplicationContext(), status, Toast.LENGTH_SHORT);
                 if(!status.equals("Failed")){
                     Intent next = getIntent();
