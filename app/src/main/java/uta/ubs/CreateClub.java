@@ -41,6 +41,8 @@ public class CreateClub extends AppCompatActivity {
                 String name = cname.getText().toString();
                 String des = cdes.getText().toString();
                 String status = cs.insertClub(name, des, id);
+                String status1 = cs.insertClubMember(name, id);
+                System.out.println(status1);
                 Toast.makeText(getApplicationContext(), status, Toast.LENGTH_SHORT).show();
                 Intent next = new Intent(getApplicationContext(), Clubs.class);
                 startActivity(next);

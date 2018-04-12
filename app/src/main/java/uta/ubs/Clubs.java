@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import java.util.ArrayList;
 
@@ -46,7 +47,15 @@ public class Clubs extends AppCompatActivity implements AdapterView.OnItemClickL
 
     @Override
     public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+        TextView name = (TextView) view.findViewById(R.id.name);
+        TextView description = (TextView) view.findViewById(R.id.description);
+        TextView userid = (TextView) view.findViewById(R.id.userid);
+        Bundle b = new Bundle();
+        b.putString("name", name.getText().toString());
+        b.putString("description", description.getText().toString());
+        b.putString("userid", userid.getText().toString());
         Intent next = new Intent(getApplicationContext(), ClubDetails.class);
+        next.putExtras(b);
         startActivity(next);
     }
 }
