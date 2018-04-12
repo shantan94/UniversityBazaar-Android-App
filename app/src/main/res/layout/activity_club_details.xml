@@ -20,7 +20,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/relative"
-        android:visibility="gone">
+        >
 
         <ListView
             android:id="@+id/listView"
@@ -30,7 +30,13 @@
             android:dividerHeight="0dp"
             android:transcriptMode="alwaysScroll"
             android:stackFromBottom="true"
-            android:layout_above="@+id/linearLayout" />
+            android:layout_above="@+id/count" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/count"
+            android:layout_above="@+id/linearLayout"/>
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -46,7 +52,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:layout_weight="1"
-                android:hint="Enter a Message" />
+                android:hint="Enter a Message"
+                android:maxLength="300"/>
 
             <Button
                 android:id="@+id/send"
@@ -54,6 +61,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
                 android:text="Send Data" />
+
 
         </LinearLayout>
 

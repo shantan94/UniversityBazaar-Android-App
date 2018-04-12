@@ -53,7 +53,8 @@ public class HomeActivity extends AppCompatActivity {
         ms = new MessageService();
         templist = ms.getMessages();
         list = new ArrayList<>(templist);
-        curtime = list.get(list.size() - 1).getDate();
+        if(list.size() != 0)
+            curtime = list.get(list.size() - 1).getDate();
         ca = new ChatAdapter(this, list, id);
         count = (TextView) findViewById(R.id.count);
         count.setText(0 + "/" + chatSize);

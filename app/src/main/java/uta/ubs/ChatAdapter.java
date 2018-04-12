@@ -28,6 +28,7 @@ public class ChatAdapter extends ArrayAdapter<Message> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent){
+        System.out.println(id);
         LayoutInflater inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         if(values.get(position).getUserid().equals(id)) {
             View chatView = inflater.inflate(R.layout.activity_chat_list, parent, false);
