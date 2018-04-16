@@ -1,9 +1,15 @@
 package uta.ubs;
 
+import android.annotation.TargetApi;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -74,12 +80,14 @@ public class NegotiateChat extends AppCompatActivity {
         });
 
         send.setOnClickListener(new View.OnClickListener() {
+            @TargetApi(Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
                 curtime = getCurrentTime();
                 n = new Negotiate(chat.getText().toString(), b.getString("curuser"), b.getString("nextuser"), curtime, b.getString("imageid"));
                 ns.insertMessage(n);
                 list.add(n);
+                sendNotification(id, chat.getText().toString());
                 System.out.println(list);
                 chat.setText("");
                 na.notifyDataSetChanged();
@@ -91,5 +99,21 @@ public class NegotiateChat extends AppCompatActivity {
         Date now = new Date();
         String strDate = sdfDate.format(now);
         return strDate;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void sendNotification(String id, String message) {
+        String CHANNEL_ID = "my_channel_01";
+        int importance = NotificationManager.IMPORTANCE_HIGH;
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, "my channel", importance);
+        mNotificationManager.createNotificationChannel(mChannel);
+        Notification notification = new Notification.Builder(NegotiateChat.this, CHANNEL_ID)
+                .setContentTitle(id)
+                .setContentText(message)
+                .setSmallIcon(R.drawable.other)
+                .setChannelId(CHANNEL_ID)
+                .build();
+        mNotificationManager.notify(101 + (int) ((new Date().getTime() / 1000L) % Integer.MAX_VALUE), notification);
     }
 }

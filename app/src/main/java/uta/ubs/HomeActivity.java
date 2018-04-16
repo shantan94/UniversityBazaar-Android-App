@@ -1,11 +1,19 @@
 package uta.ubs;
 
 
+import android.annotation.TargetApi;
+import android.app.Notification;
+import android.app.NotificationChannel;
+import android.app.NotificationManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -64,7 +72,7 @@ public class HomeActivity extends AppCompatActivity {
         chat = (EditText) findViewById(R.id.chat);
         send.setEnabled(false);
         HomeActivity.AsyncTaskRunner  runner = new HomeActivity.AsyncTaskRunner();
-        runner.execute();
+        runner.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 
         chat.addTextChangedListener(new TextWatcher() {
             @Override
@@ -89,10 +97,12 @@ public class HomeActivity extends AppCompatActivity {
         });
 
         send.setOnClickListener(new View.OnClickListener() {
+            @TargetApi(Build.VERSION_CODES.O)
             @Override
             public void onClick(View view) {
                 curtime = getCurrentTime();
                 m = new Message(chat.getText().toString(), id, curtime);
+                sendNotification(id, chat.getText().toString());
                 ms.insertMessage(m);
                 list.add(m);
                 chat.setText("");
@@ -145,30 +155,29 @@ public class HomeActivity extends AppCompatActivity {
         });
     }
 
-    @Override
-    protected void onPause() {
-        super.onPause();
-        done = false;
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        done = true;
-        HomeActivity.AsyncTaskRunner runner = new HomeActivity.AsyncTaskRunner();
-        runner.execute();
-    }
+//    @Override
+//    protected void onPause() {
+//        super.onPause();
+//        done = false;
+//    }
+//
+//    @Override
+//    protected void onResume() {
+//        super.onResume();
+//        done = true;
+//        HomeActivity.AsyncTaskRunner runner = new HomeActivity.AsyncTaskRunner();
+//        runner.execute();
+//    }
 
     private class AsyncTaskRunner extends AsyncTask<Void, Void, Void> {
         ArrayList<Message> list1;
 
+        @TargetApi(Build.VERSION_CODES.O)
         @Override
         protected Void doInBackground(Void... voids) {
-            while (done) {
+            while (true) {
                 list1 = new ArrayList<>();
                 try {
-                    Log.d("here", "in here");
-                    System.out.println("in here");
                     Thread.sleep(2000);
                     if(curtime.contains("T")) {
                         String[] temparr = curtime.split("T");
@@ -180,6 +189,10 @@ public class HomeActivity extends AppCompatActivity {
                         list1 = ms.getMessagesAfterTime(curtime);
                     if(list1.size() != 0) {
                         curtime = list1.get(list1.size() - 1).getDate();
+                        for (int i = 0;i < list1.size();i ++) {
+                            Thread.sleep(100);
+                            sendNotification(list1.get(i).getUserid(), list1.get(i).getMessage());
+                        }
                         list.addAll(list1);
                         updateListView();
                     }
@@ -187,7 +200,7 @@ public class HomeActivity extends AppCompatActivity {
                     e.printStackTrace();
                 }
             }
-            return null;
+//            return null;
         }
     }
 
@@ -205,5 +218,22 @@ public class HomeActivity extends AppCompatActivity {
                 ca.notifyDataSetChanged();
             }
         });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.O)
+    public void sendNotification(String id, String message) {
+        System.out.println(message);
+        String CHANNEL_ID = "my_channel_01";
+        int importance = NotificationManager.IMPORTANCE_HIGH;
+        NotificationManager mNotificationManager = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        NotificationChannel mChannel = new NotificationChannel(CHANNEL_ID, "my channel", importance);
+        mNotificationManager.createNotificationChannel(mChannel);
+        Notification notification = new Notification.Builder(HomeActivity.this, CHANNEL_ID)
+                .setContentTitle(id)
+                .setContentText(message)
+                .setSmallIcon(R.drawable.other)
+                .setChannelId(CHANNEL_ID)
+                .build();
+        mNotificationManager.notify(101 + (int) ((new Date().getTime() / 1000L) % Integer.MAX_VALUE), notification);
     }
 }

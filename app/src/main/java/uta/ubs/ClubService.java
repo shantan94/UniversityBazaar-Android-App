@@ -235,7 +235,7 @@ public class ClubService {
             if(result.has("data")) {
                 JSONArray tempres = result.getJSONArray("data");
                 for (int i = 0; i < tempres.length(); i++) {
-                    Message m = new Message(tempres.getJSONObject(i).getString("message"), tempres.getJSONObject(i).getString("userid"), tempres.getJSONObject(i).getString("time"));
+                    Message m = new Message(tempres.getJSONObject(i).getString("message"), tempres.getJSONObject(i).getString("userid"), tempres.getJSONObject(i).getString("date"));
                     temp.add(m);
                 }
             }
