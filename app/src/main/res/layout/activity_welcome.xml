@@ -4,7 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white"
+    android:background="@color/blue_grey_900"
     tools:context="uta.ubs.WelcomeActivity">
 
 
@@ -25,11 +25,13 @@
         android:layout_height="wrap_content"
         android:text="LOGIN"
         android:textSize="20dp"
-        android:background="@color/white"
+        android:textColor="@color/light_green_500"
+        android:paddingLeft="66dp"
+        android:paddingRight="66dp"
         android:layout_marginTop="41dp"
         android:layout_below="@+id/Logo"
         android:layout_centerHorizontal="true"
-        style="?android:attr/borderlessButtonStyle"/>
+        android:background="@drawable/button_border"/>
 
     <Button
         android:id="@+id/button2"
@@ -38,9 +40,11 @@
         android:layout_marginTop="25dp"
         android:text="Register"
         android:textSize="20dp"
-        android:padding="5dp"
-        android:background="@color/white"
+
+        android:paddingLeft="50dp"
+        android:paddingRight="50dp"
+        android:textColor="@color/light_green_500"
         android:layout_below="@+id/Login"
         android:layout_centerHorizontal="true"
-        style="?android:attr/borderlessButtonStyle"/>
+        android:background="@drawable/button_border"/>
 </RelativeLayout>
