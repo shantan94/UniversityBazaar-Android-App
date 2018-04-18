@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="uta.ubs.LoginActivity"
+    android:background="@color/blue_grey_900"
     android:orientation="vertical"
     android:weightSum="1">
 
@@ -58,9 +59,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="LOGIN"
+        android:textColor="@color/light_green_500"
         android:layout_gravity="center_horizontal"
         android:layout_marginTop="20dp"
-        style="?android:attr/borderlessButtonStyle"></Button>
+        android:background="@drawable/button_border"></Button>
 
     <TextView
         android:id="@+id/textView3"
@@ -68,8 +70,11 @@
         android:layout_height="wrap_content"
         android:layout_weight="0.05"
         android:text="Forgot Password?"
+        android:textColor="@color/light_green_500"
         android:layout_marginTop="20dp"
-        android:layout_marginLeft="136dp"/>
+        android:layout_gravity="center_horizontal"
+        android:paddingLeft="20dp"
+        android:paddingRight="20dp"/>
 
 
 </LinearLayout>
