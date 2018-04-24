@@ -1,7 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/blue_grey_900">
     <RelativeLayout
         android:id="@+id/rl"
         android:layout_width="match_parent"
@@ -10,7 +11,7 @@
         <TextView
             android:id="@+id/textView1"
             android:textSize="25dp"
-            android:layout_width="wrap_content"
+            android:layout_width="60dp"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
             android:layout_centerHorizontal="true"
@@ -36,20 +37,26 @@
 
         <Button
             android:id="@+id/button2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="96dp"
+
+            android:layout_alignParentStart="true"
             android:layout_below="@+id/chat_text"
-            android:layout_marginTop="24dp"
-            android:layout_toStartOf="@+id/button"
-            android:text="MarketPlace" />
+            android:layout_gravity="center_horizontal"
+            android:background="@drawable/button_border"
+            android:text="MarketPlace"
+            android:textColor="@color/colorAccent" />
+
         <Button
             android:id="@+id/button3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
             android:layout_below="@+id/button2"
             android:layout_centerHorizontal="true"
-            android:layout_marginTop="8dp"
-            android:text="Clubs" />
+            android:layout_marginTop="-3dp"
+            android:background="@drawable/button_border"
+            android:text="Clubs"
+            android:textColor="@color/colorAccent" />
 
         <Button
             android:layout_width="wrap_content"
@@ -64,7 +71,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_toStartOf="@+id/button3"
+
             android:text="Profile page" />
 
         <ListView
@@ -76,7 +83,8 @@
             android:divider="@null"
             android:dividerHeight="0dp"
             android:transcriptMode="alwaysScroll"
-            android:stackFromBottom="true"/>
+            android:stackFromBottom="true"
+            android:background="@drawable/button_border"/>
 
         <LinearLayout
             android:id="@+id/chat_text"
@@ -92,6 +100,7 @@
                 android:layout_alignParentStart="true"
                 android:layout_below="@+id/textView2"
                 android:hint="Enter text to post"
+                android:textColor="@color/colorAccent"
                 android:maxLength="255"
                 android:layout_weight="200"/>
 
@@ -100,16 +109,21 @@
                 android:text="Send"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"/>
+                android:layout_weight="1"
+                android:background="@drawable/button_border"
+                android:textColor="@color/colorAccent"
+                />
         </LinearLayout>
 
         <TextView
+            android:id="@+id/count"
             android:layout_width="80dp"
             android:layout_height="wrap_content"
-            android:id="@+id/count"
-            android:layout_below="@+id/chat_text"
+            android:layout_above="@+id/button2"
+            android:layout_alignParentStart="true"
+            android:layout_marginLeft="5dp"
             android:textColor="@color/grey_400"
-            android:textSize="10dp"/>
+            android:textSize="8dp" />
 
         <Button
             android:id="@+id/button"

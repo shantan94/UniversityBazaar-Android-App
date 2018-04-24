@@ -1,54 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/blue_grey_900">
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:enabled="false"
-        android:id="@+id/name"/>
+        android:id="@+id/name"
+        android:textColor="@color/et_endis"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:enabled="false"
-        android:id="@+id/age"/>
+        android:id="@+id/age"
+        android:textColor="@color/et_endis"/>
 
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/gender"></Spinner>
+        android:id="@+id/gender"
+        android:popupBackground="@color/light_green_500"
+
+        android:textColor="@color/colorAccent"></Spinner>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:enabled="false"
-        android:id="@+id/email"/>
+        android:id="@+id/email"
+        android:textColor="@color/et_endis"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:enabled="false"
-        android:id="@+id/userid"/>
+        android:id="@+id/userid"
+        android:textColor="@color/et_endis"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:enabled="false"
-        android:id="@+id/number"/>
+        android:id="@+id/number"
+        android:textColor="@color/et_endis"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="edit"
-        android:id="@+id/edit"/>
+        android:textColor="@color/colorAccent"
+        android:id="@+id/edit"
+        android:background="@drawable/button_border"
+        />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="save"
+        android:textColor="@color/colorAccent"
         android:id="@+id/save"
-        android:visibility="gone"/>
+        android:visibility="gone"
+        android:background="@drawable/button_border"/>
 
 </LinearLayout>
