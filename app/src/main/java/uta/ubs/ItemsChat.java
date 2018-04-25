@@ -70,6 +70,18 @@ public class ItemsChat extends AppCompatActivity implements AdapterView.OnItemCl
                         startActivity(next);
                         return true;
                     }
+                    case R.id.nav_profile:{
+                        mdl.closeDrawers();
+                        Intent next = new Intent(getApplicationContext(), ProfilePage.class);
+                        startActivity(next);
+                        return true;
+                    }
+                    case R.id.nav_passwordreset:{
+                        mdl.closeDrawers();
+                        Intent next = new Intent(getApplicationContext(), ResetPasswordActivity.class);
+                        startActivity(next);
+                        return true;
+                    }
                     case R.id.nav_marketplace:{
                         mdl.closeDrawers();
                         Intent next = new Intent(getApplicationContext(), MarketPlace.class);
@@ -87,6 +99,14 @@ public class ItemsChat extends AppCompatActivity implements AdapterView.OnItemCl
                         Intent next = new Intent(getApplicationContext(), ListItemPage.class);
                         startActivity(next);
                         return true;
+                    }
+                    case R.id.nav_logout:{
+                        mdl.closeDrawers();
+                        SharedPreferences sp = getBaseContext().getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+                        sp.edit().clear().commit();
+                        Intent next = new Intent(getApplicationContext(), WelcomeActivity.class);
+                        next.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(next);
                     }
                 }
                 return false;

@@ -34,6 +34,8 @@ import android.widget.TextView;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 /**
  * Created by Ann on 2/13/2018.
@@ -43,8 +45,6 @@ public class HomeActivity extends AppCompatActivity {
     Button send;
     Button button2;
     Button button3;
-    Button button4;
-    Button button5;
     ArrayList<Message> list = new ArrayList<>();
     ArrayList<Message> templist = new ArrayList<>();
     ListView lv;
@@ -102,6 +102,18 @@ public class HomeActivity extends AppCompatActivity {
                         startActivity(next);
                         return true;
                     }
+                    case R.id.nav_profile:{
+                        mdl.closeDrawers();
+                        Intent next = new Intent(getApplicationContext(), ProfilePage.class);
+                        startActivity(next);
+                        return true;
+                    }
+                    case R.id.nav_passwordreset:{
+                        mdl.closeDrawers();
+                        Intent next = new Intent(getApplicationContext(), ResetPasswordActivity.class);
+                        startActivity(next);
+                        return true;
+                    }
                     case R.id.nav_marketplace:{
                         mdl.closeDrawers();
                         Intent next = new Intent(getApplicationContext(), MarketPlace.class);
@@ -119,6 +131,14 @@ public class HomeActivity extends AppCompatActivity {
                         Intent next = new Intent(getApplicationContext(), ListItemPage.class);
                         startActivity(next);
                         return true;
+                    }
+                    case R.id.nav_logout:{
+                        mdl.closeDrawers();
+                        SharedPreferences sp = getBaseContext().getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+                        sp.edit().clear().commit();
+                        Intent next = new Intent(getApplicationContext(), WelcomeActivity.class);
+                        next.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                        startActivity(next);
                     }
                 }
                 return false;
@@ -178,30 +198,6 @@ public class HomeActivity extends AppCompatActivity {
                 Intent myIntent = new Intent(HomeActivity.this,
                         Clubs.class);
                 startActivity(myIntent);
-            }
-        });
-
-
-        button4 = (Button) findViewById(R.id.button4);
-
-        // Capture button clicks
-        button4.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View arg0) {
-
-                // Start NewActivity.class
-                Intent myIntent = new Intent(HomeActivity.this,
-                        ProfilePage.class);
-                startActivity(myIntent);
-            }
-        });
-
-        button5 = (Button) findViewById(R.id.reset);
-
-        button5.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent next = new Intent(getApplicationContext(), ResetPasswordActivity.class);
-                startActivity(next);
             }
         });
     }

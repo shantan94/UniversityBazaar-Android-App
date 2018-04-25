@@ -29,20 +29,10 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" >
 
-                    <TextView
-                        android:id="@+id/textView1"
-                        android:textSize="25dp"
-                        android:layout_width="60dp"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-                        android:layout_centerHorizontal="true"
-                        android:layout_marginTop="20dp" />
-
                     <ScrollView
                         android:id="@+id/scrollView1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_below="@+id/textView1"
                         android:layout_centerHorizontal="true"
                         android:layout_marginTop="10dp" >
 
@@ -78,22 +68,6 @@
                         android:background="@drawable/button_border"
                         android:text="Clubs"
                         android:textColor="@color/colorAccent" />
-
-                    <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_below="@+id/button3"
-                        android:text="Reset Password"
-                        android:layout_centerHorizontal="true"
-                        android:id="@+id/reset"/>
-
-                    <Button
-                        android:id="@+id/button4"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentTop="true"
-
-                        android:text="Profile page" />
 
                     <ListView
                         android:id="@+id/textView2"
@@ -145,15 +119,6 @@
                         android:layout_marginLeft="5dp"
                         android:textColor="@color/grey_400"
                         android:textSize="8dp" />
-
-                    <Button
-                        android:id="@+id/button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentEnd="true"
-                        android:layout_alignParentTop="true"
-                        android:layout_marginEnd="42dp"
-                        android:text="Logout" />
 
                 </RelativeLayout>
             </LinearLayout>
