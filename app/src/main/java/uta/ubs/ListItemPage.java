@@ -10,9 +10,16 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -46,11 +53,21 @@ public class ListItemPage extends AppCompatActivity implements AdapterView.OnIte
     Bitmap selected_image;
     int descSize = 300;
     String id;
+    DrawerLayout mdl;
+    NavigationView nv;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_item_page);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        setSupportActionBar(toolbar);
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(true);
+        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        mdl = findViewById(R.id.drawer_layout);
+        nv = findViewById(R.id.nav_view);
         is = new ItemService();
         context = this;
         sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
@@ -67,6 +84,39 @@ public class ListItemPage extends AppCompatActivity implements AdapterView.OnIte
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.type_array, android.R.layout.simple_spinner_dropdown_item);
         type.setAdapter(adapter);
         type.setOnItemSelectedListener(this);
+
+        nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.nav_home:{
+                        mdl.closeDrawers();
+                        Intent next = new Intent(getApplicationContext(), HomeActivity.class);
+                        startActivity(next);
+                        return true;
+                    }
+                    case R.id.nav_marketplace:{
+                        mdl.closeDrawers();
+                        Intent next = new Intent(getApplicationContext(), MarketPlace.class);
+                        startActivity(next);
+                        return true;
+                    }
+                    case R.id.nav_clubpage:{
+                        mdl.closeDrawers();
+                        Intent next = new Intent(getApplicationContext(), Clubs.class);
+                        startActivity(next);
+                        return true;
+                    }
+                    case R.id.nav_uploaditem:{
+                        mdl.closeDrawers();
+                        Intent next = new Intent(getApplicationContext(), ListItemPage.class);
+                        startActivity(next);
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
 
         post.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -122,6 +172,16 @@ public class ListItemPage extends AppCompatActivity implements AdapterView.OnIte
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case android.R.id.home:
+                mdl.openDrawer(GravityCompat.START);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @Override

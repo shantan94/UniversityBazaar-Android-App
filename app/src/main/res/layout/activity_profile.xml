@@ -1,68 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue_grey_900">
+    android:fitsSystemWindows="true">
 
-    <EditText
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/content_frame"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:enabled="false"
-        android:id="@+id/name"
-        android:textColor="@color/et_endis"/>
+        android:layout_height="match_parent">
 
-    <EditText
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:enabled="false"
-        android:id="@+id/age"
-        android:textColor="@color/et_endis"/>
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorAccent"
+        android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
 
-    <Spinner
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:id="@+id/gender"
-        android:popupBackground="@color/light_green_500"
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:orientation="vertical" android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/blue_grey_900">
 
-        android:textColor="@color/colorAccent"></Spinner>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:id="@+id/name"
+                android:textColor="@color/et_endis"/>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:enabled="false"
-        android:id="@+id/email"
-        android:textColor="@color/et_endis"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:id="@+id/age"
+                android:textColor="@color/et_endis"/>
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:enabled="false"
-        android:id="@+id/userid"
-        android:textColor="@color/et_endis"/>
+            <Spinner
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/gender"
+                android:popupBackground="@color/light_green_500"
 
-    <EditText
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:enabled="false"
-        android:id="@+id/number"
-        android:textColor="@color/et_endis"/>
+                android:textColor="@color/colorAccent"></Spinner>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="edit"
-        android:textColor="@color/colorAccent"
-        android:id="@+id/edit"
-        android:background="@drawable/button_border"
-        />
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:id="@+id/email"
+                android:textColor="@color/et_endis"/>
 
-    <Button
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="save"
-        android:textColor="@color/colorAccent"
-        android:id="@+id/save"
-        android:visibility="gone"
-        android:background="@drawable/button_border"/>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:id="@+id/userid"
+                android:textColor="@color/et_endis"/>
 
-</LinearLayout>
+            <EditText
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:id="@+id/number"
+                android:textColor="@color/et_endis"/>
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="edit"
+                android:textColor="@color/colorAccent"
+                android:id="@+id/edit"
+                android:background="@drawable/button_border"
+                />
+
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="save"
+                android:textColor="@color/colorAccent"
+                android:id="@+id/save"
+                android:visibility="gone"
+                android:background="@drawable/button_border"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:menu="@layout/drawer_view"
+        app:headerLayout="@layout/drawer_header"/>
+
+</android.support.v4.widget.DrawerLayout>

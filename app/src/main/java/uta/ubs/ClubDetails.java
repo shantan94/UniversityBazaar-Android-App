@@ -11,12 +11,19 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.design.widget.NavigationView;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -53,6 +60,8 @@ public class ClubDetails extends AppCompatActivity {
     boolean done = true;
     int chatSize = 300;
     TextView count;
+    DrawerLayout mdl;
+    NavigationView nv;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -62,6 +71,14 @@ public class ClubDetails extends AppCompatActivity {
             StrictMode.setThreadPolicy(policy);
         }
         setContentView(R.layout.activity_club_details);
+        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        setSupportActionBar(toolbar);
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(true);
+        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
+        mdl = findViewById(R.id.drawer_layout);
+        nv = findViewById(R.id.nav_view);
         Intent current = this.getIntent();
         b = current.getExtras();
         name = (TextView) findViewById(R.id.clubname);
@@ -88,6 +105,39 @@ public class ClubDetails extends AppCompatActivity {
         }
         ClubDetails.AsyncTaskRunner  runner = new ClubDetails.AsyncTaskRunner();
         runner.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
+
+        nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
+            @Override
+            public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+                switch (item.getItemId()){
+                    case R.id.nav_home:{
+                        mdl.closeDrawers();
+                        Intent next = new Intent(getApplicationContext(), HomeActivity.class);
+                        startActivity(next);
+                        return true;
+                    }
+                    case R.id.nav_marketplace:{
+                        mdl.closeDrawers();
+                        Intent next = new Intent(getApplicationContext(), MarketPlace.class);
+                        startActivity(next);
+                        return true;
+                    }
+                    case R.id.nav_clubpage:{
+                        mdl.closeDrawers();
+                        Intent next = new Intent(getApplicationContext(), Clubs.class);
+                        startActivity(next);
+                        return true;
+                    }
+                    case R.id.nav_uploaditem:{
+                        mdl.closeDrawers();
+                        Intent next = new Intent(getApplicationContext(), ListItemPage.class);
+                        startActivity(next);
+                        return true;
+                    }
+                }
+                return false;
+            }
+        });
 
         chat.addTextChangedListener(new TextWatcher() {
             @Override
@@ -210,6 +260,16 @@ public class ClubDetails extends AppCompatActivity {
                 ca.notifyDataSetChanged();
             }
         });
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+        switch (item.getItemId()){
+            case android.R.id.home:
+                mdl.openDrawer(GravityCompat.START);
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)

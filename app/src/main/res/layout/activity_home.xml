@@ -1,138 +1,169 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/blue_grey_900">
-    <RelativeLayout
-        android:id="@+id/rl"
+    android:fitsSystemWindows="true">
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:id="@+id/content_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent">
 
-        <TextView
-            android:id="@+id/textView1"
-            android:textSize="25dp"
-            android:layout_width="60dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="20dp" />
-
-        <ScrollView
-            android:id="@+id/scrollView1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/textView1"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="10dp" >
-
-            <LinearLayout
-                android:id="@+id/linear1"
-                android:orientation="vertical"
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent" >
+                android:layout_height="?attr/actionBarSize"
+                android:background="@color/colorAccent"
+                android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
 
+            <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                xmlns:tools="http://schemas.android.com/tools"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="@color/blue_grey_900">
+
+                <RelativeLayout
+                    android:id="@+id/rl"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" >
+
+                    <TextView
+                        android:id="@+id/textView1"
+                        android:textSize="25dp"
+                        android:layout_width="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="20dp" />
+
+                    <ScrollView
+                        android:id="@+id/scrollView1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/textView1"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="10dp" >
+
+                        <LinearLayout
+                            android:id="@+id/linear1"
+                            android:orientation="vertical"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent" >
+
+                        </LinearLayout>
+
+                    </ScrollView>
+
+                    <Button
+                        android:id="@+id/button2"
+                        android:layout_width="match_parent"
+                        android:layout_height="96dp"
+
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/chat_text"
+                        android:layout_gravity="center_horizontal"
+                        android:background="@drawable/button_border"
+                        android:text="MarketPlace"
+                        android:textColor="@color/colorAccent" />
+
+                    <Button
+                        android:id="@+id/button3"
+                        android:layout_width="match_parent"
+                        android:layout_height="100dp"
+                        android:layout_below="@+id/button2"
+                        android:layout_centerHorizontal="true"
+                        android:layout_marginTop="-3dp"
+                        android:background="@drawable/button_border"
+                        android:text="Clubs"
+                        android:textColor="@color/colorAccent" />
+
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/button3"
+                        android:text="Reset Password"
+                        android:layout_centerHorizontal="true"
+                        android:id="@+id/reset"/>
+
+                    <Button
+                        android:id="@+id/button4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentTop="true"
+
+                        android:text="Profile page" />
+
+                    <ListView
+                        android:id="@+id/textView2"
+                        android:layout_width="match_parent"
+                        android:layout_height="250dp"
+                        android:layout_alignParentStart="true"
+                        android:layout_below="@+id/scrollView1"
+                        android:divider="@null"
+                        android:dividerHeight="0dp"
+                        android:transcriptMode="alwaysScroll"
+                        android:stackFromBottom="true"
+                        android:background="@drawable/button_border"/>
+
+                    <LinearLayout
+                        android:id="@+id/chat_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_marginTop="20dp"
+                        android:layout_below="@+id/textView2">
+
+                        <EditText
+                            android:id="@+id/chat"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_alignParentStart="true"
+                            android:layout_below="@+id/textView2"
+                            android:hint="Enter text to post"
+                            android:textColor="@color/colorAccent"
+                            android:maxLength="255"
+                            android:layout_weight="200"/>
+
+                        <Button
+                            android:id="@+id/send"
+                            android:text="Send"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:background="@drawable/button_border"
+                            android:textColor="@color/colorAccent"
+                            />
+                    </LinearLayout>
+
+                    <TextView
+                        android:id="@+id/count"
+                        android:layout_width="80dp"
+                        android:layout_height="wrap_content"
+                        android:layout_above="@+id/button2"
+                        android:layout_alignParentStart="true"
+                        android:layout_marginLeft="5dp"
+                        android:textColor="@color/grey_400"
+                        android:textSize="8dp" />
+
+                    <Button
+                        android:id="@+id/button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentEnd="true"
+                        android:layout_alignParentTop="true"
+                        android:layout_marginEnd="42dp"
+                        android:text="Logout" />
+
+                </RelativeLayout>
             </LinearLayout>
-
-        </ScrollView>
-
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="match_parent"
-            android:layout_height="96dp"
-
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/chat_text"
-            android:layout_gravity="center_horizontal"
-            android:background="@drawable/button_border"
-            android:text="MarketPlace"
-            android:textColor="@color/colorAccent" />
-
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="match_parent"
-            android:layout_height="100dp"
-            android:layout_below="@+id/button2"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="-3dp"
-            android:background="@drawable/button_border"
-            android:text="Clubs"
-            android:textColor="@color/colorAccent" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/button3"
-            android:text="Reset Password"
-            android:layout_centerHorizontal="true"
-            android:id="@+id/reset"/>
-
-        <Button
-            android:id="@+id/button4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentTop="true"
-
-            android:text="Profile page" />
-
-        <ListView
-            android:id="@+id/textView2"
-            android:layout_width="match_parent"
-            android:layout_height="250dp"
-            android:layout_alignParentStart="true"
-            android:layout_below="@+id/scrollView1"
-            android:divider="@null"
-            android:dividerHeight="0dp"
-            android:transcriptMode="alwaysScroll"
-            android:stackFromBottom="true"
-            android:background="@drawable/button_border"/>
-
-        <LinearLayout
-            android:id="@+id/chat_text"
-            android:layout_width="match_parent"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
-            android:layout_below="@+id/textView2">
-
-            <EditText
-                android:id="@+id/chat"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentStart="true"
-                android:layout_below="@+id/textView2"
-                android:hint="Enter text to post"
-                android:textColor="@color/colorAccent"
-                android:maxLength="255"
-                android:layout_weight="200"/>
-
-            <Button
-                android:id="@+id/send"
-                android:text="Send"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:background="@drawable/button_border"
-                android:textColor="@color/colorAccent"
-                />
-        </LinearLayout>
-
-        <TextView
-            android:id="@+id/count"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/button2"
-            android:layout_alignParentStart="true"
-            android:layout_marginLeft="5dp"
-            android:textColor="@color/grey_400"
-            android:textSize="8dp" />
-
-        <Button
-            android:id="@+id/button"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="42dp"
-            android:text="Logout" />
-
-    </RelativeLayout>
-</LinearLayout>
+    </LinearLayout>
+    <android.support.design.widget.NavigationView
+        android:id="@+id/nav_view"
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:layout_gravity="start"
+        android:fitsSystemWindows="true"
+        app:menu="@layout/drawer_view"
+        app:headerLayout="@layout/drawer_header"/>
+</android.support.v4.widget.DrawerLayout>
