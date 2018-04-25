@@ -11,7 +11,7 @@
             android:title="Marketplace" />
         <item
             android:id="@+id/nav_clubpage"
-            android:icon="@drawable/clubs"
+            android:icon="@drawable/club"
             android:title="Clubs" />
         <item
             android:id="@+id/nav_uploaditem"
