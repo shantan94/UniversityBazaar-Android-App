@@ -17,5 +17,9 @@
             android:id="@+id/nav_uploaditem"
             android:icon="@drawable/listitem"
             android:title="Item Upload" />
+        <item
+            android:id="@+id/nav_logout"
+            android:icon="@drawable/logout"
+            android:title="LogOut" />
     </group>
 </menu>
