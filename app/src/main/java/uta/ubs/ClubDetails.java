@@ -62,6 +62,7 @@ public class ClubDetails extends AppCompatActivity {
     TextView count;
     DrawerLayout mdl;
     NavigationView nv;
+    Button ml;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -79,6 +80,7 @@ public class ClubDetails extends AppCompatActivity {
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
         mdl = findViewById(R.id.drawer_layout);
         nv = findViewById(R.id.nav_view);
+        ml = (Button) findViewById(R.id.memberlist);
         Intent current = this.getIntent();
         b = current.getExtras();
         name = (TextView) findViewById(R.id.clubname);
@@ -156,6 +158,17 @@ public class ClubDetails extends AppCompatActivity {
                     }
                 }
                 return false;
+            }
+        });
+
+        ml.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Bundle b1 = new Bundle();
+                b1.putString("clubname", b.getString("name"));
+                Intent next = new Intent(getApplicationContext(), ClubMembersPage.class);
+                next.putExtras(b1);
+                startActivity(next);
             }
         });
 

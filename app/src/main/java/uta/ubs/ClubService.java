@@ -178,6 +178,43 @@ public class ClubService {
         return temp;
     }
 
+    public ArrayList<MyNegotiations> memberList(String clubname){
+        ArrayList<MyNegotiations> temp = new ArrayList<>();
+        try{
+            URL url = new URL(endpoint + "/users/checkmember");
+            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            conn.setUseCaches(false);
+            conn.setAllowUserInteraction(false);
+            conn.setRequestProperty("Content-Type", "application/json");
+            JSONObject user = new JSONObject();
+            user.put("clubname", clubname);
+            OutputStream out = conn.getOutputStream();
+            Writer writer = new OutputStreamWriter(out, "UTF-8");
+            writer.write(user.toString());
+            writer.close();
+            out.close();
+            BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            JSONObject result = new JSONObject(rd.readLine());
+            if(result.has("data")) {
+                JSONArray tempres = result.getJSONArray("data");
+                System.out.println(tempres);
+                for (int i = 0; i < tempres.length(); i++) {
+                    MyNegotiations mn = new MyNegotiations("", tempres.getJSONObject(i).getString("clubmember") + "(" + tempres.getJSONObject(i).getString("clubmembersname") + ")");
+                    temp.add(mn);
+                }
+            }
+            rd.close();
+            return temp;
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return temp;
+    }
+
     public ArrayList<Club> getClubs(){
         ArrayList<Club> temp = new ArrayList<>();
         try{
