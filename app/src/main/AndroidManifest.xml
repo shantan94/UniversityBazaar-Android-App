@@ -84,6 +84,9 @@
         <activity android:name=".ClubMembersPage"
             android:label="Club Members"
             android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".SupportEmail"
+            android:label="Support Email"
+            android:theme="@style/AppTheme.NoActionBar"/>
     </application>
 
 </manifest>

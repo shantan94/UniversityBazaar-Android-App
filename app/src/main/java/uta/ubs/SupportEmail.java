@@ -25,22 +25,23 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 
 /**
- * Created by Ann on 3/27/2018.
+ * Created by shantan on 4/26/2018.
  */
 
-public class ResetPasswordActivity extends AppCompatActivity {
-
-    private AdView mAdView;
-    RegisterService rs = null;
-    Button Reset;
-    static String MyPREFERENCES = "Session Values";
-    SharedPreferences sharedPreferences;
+public class SupportEmail extends AppCompatActivity {
     DrawerLayout mdl;
     NavigationView nv;
+    private AdView mAdView;
+    EditText userid;
+    EditText email;
+    EditText issue;
+    Button send;
+    EmailService es;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_reset_password);
+        setContentView(R.layout.activity_support_email);
         Toolbar toolbar = findViewById(R.id.toolbar);
         toolbar.setTitleTextColor(getResources().getColor(R.color.white));
         setSupportActionBar(toolbar);
@@ -49,23 +50,33 @@ public class ResetPasswordActivity extends AppCompatActivity {
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
         mdl = findViewById(R.id.drawer_layout);
         nv = findViewById(R.id.nav_view);
-        if (Build.VERSION.SDK_INT > 9) {
-            StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
-            StrictMode.setThreadPolicy(policy);
-        }
-        Reset = (Button) findViewById(R.id.Reset);
-        final EditText userid = (EditText) findViewById(R.id.usernameData);
-        final EditText CurrentPasswordData = (EditText) findViewById(R.id.CurrentPasswordData);
-        final EditText NewPasswordData = (EditText) findViewById(R.id.NewPasswordData);
-        final EditText ConfirmPasswordData = (EditText) findViewById(R.id.ConfirmPasswordData);
-        sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
-        rs = new RegisterService();
-
-        // Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713
+        es = new EmailService();
         MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
         mAdView = findViewById(R.id.adView);
+        userid = findViewById(R.id.id);
+        email = findViewById(R.id.email);
+        issue = findViewById(R.id.issue);
+        send = findViewById(R.id.send);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+        send.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if(userid.getText().toString().equals(""))
+                    Toast.makeText(getApplicationContext(), "UserId field should not be empty", Toast.LENGTH_SHORT).show();
+                else if(email.getText().toString().equals(""))
+                    Toast.makeText(getApplicationContext(), "Email Id field should not be empty", Toast.LENGTH_SHORT).show();
+                else if(issue.getText().toString().equals(""))
+                    Toast.makeText(getApplicationContext(), "Issue field should not be empty", Toast.LENGTH_SHORT).show();
+                else {
+                    String subject = "Issue " + userid.getText().toString();
+                    String body = userid.getText().toString() + "\n" + email.getText().toString() + "\n" + issue.getText().toString();
+                    String status = es.sendSupportMail(subject, body);
+                    Toast.makeText(getApplicationContext(), status, Toast.LENGTH_SHORT).show();
+                }
+            }
+        });
 
         mAdView.setAdListener(new AdListener() {
             @Override
@@ -95,6 +106,7 @@ public class ResetPasswordActivity extends AppCompatActivity {
                 // to the app after tapping on an ad.
             }
         });
+
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
@@ -152,31 +164,6 @@ public class ResetPasswordActivity extends AppCompatActivity {
                 return false;
             }
         });
-        Reset.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                String username = userid.getText().toString();
-                String CurrentPassword = CurrentPasswordData.getText().toString();
-                String NewPassword = NewPasswordData.getText().toString();
-                String ConfirmPassword = ConfirmPasswordData.getText().toString();
-                String status = rs.login(username, CurrentPassword);
-                if (status.equals("Passed")) {
-                    if (NewPassword.equals(ConfirmPassword)) {
-                        String status1 = rs.reset(username,NewPassword);
-                        Toast.makeText(getApplicationContext(), status1, Toast.LENGTH_SHORT).show();
-                        Intent next = new Intent(getApplicationContext(), HomeActivity.class);
-                        startActivity(next);
-
-                    }
-                    else{
-                        Toast.makeText(getApplicationContext(), "Passwords do not match", Toast.LENGTH_SHORT).show();
-                    }
-
-                } else
-                    Toast.makeText(getApplicationContext(), "Username or password does not exist", Toast.LENGTH_SHORT).show();
-            }
-        });
-
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item){

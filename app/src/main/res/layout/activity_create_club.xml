@@ -40,13 +40,24 @@
         android:singleLine="false"
         android:layout_gravity="center"
         android:hint="Enter description, timings etc."
+        android:maxLength="100"
         android:textColor="@color/colorAccent"
         android:textColorHint="@color/colorAccent"
         android:id="@+id/Cdes"/>
 
+    <TextView
+        android:id="@+id/count"
+        android:layout_width="80dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_gravity="center"
+        android:textColor="@color/grey_400"
+        android:textSize="8dp" />
+
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="20dp"
         android:text="SUBMIT"
         android:layout_gravity="center"
         android:id="@+id/Csubmit"
@@ -75,5 +86,6 @@
         app:menu="@layout/drawer_view"
         app:headerLayout="@layout/drawer_header"
         android:background="@color/blue_grey_900"
+        app:itemIconTint="@color/colorAccent"
         app:itemTextColor="@color/colorAccent"/>
 </android.support.v4.widget.DrawerLayout>

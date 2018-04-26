@@ -144,6 +144,11 @@ public class Clubs extends AppCompatActivity implements AdapterView.OnItemClickL
                         next.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(next);
                     }
+                    case R.id.nav_supportemail:{
+                        mdl.closeDrawers();
+                        Intent next = new Intent(getApplicationContext(), SupportEmail.class);
+                        startActivity(next);
+                    }
                 }
                 return false;
             }

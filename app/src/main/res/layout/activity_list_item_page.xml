@@ -25,6 +25,17 @@
     android:layout_height="match_parent"
     android:background="@color/blue_grey_900">
 
+    <com.google.android.gms.ads.AdView
+        xmlns:ads="http://schemas.android.com/apk/res-auto"
+        android:id="@+id/adView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentTop="true"
+        ads:adSize="SMART_BANNER"
+        ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
+    </com.google.android.gms.ads.AdView>
+
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -88,17 +99,6 @@
         android:background="@drawable/button_border"
         android:textColor="@color/colorAccent"/>
 
-    <com.google.android.gms.ads.AdView
-        xmlns:ads="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/adView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        ads:adSize="SMART_BANNER"
-        ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
-    </com.google.android.gms.ads.AdView>
-
         </LinearLayout>
     </LinearLayout>
     <android.support.design.widget.NavigationView
@@ -110,5 +110,6 @@
         app:menu="@layout/drawer_view"
         app:headerLayout="@layout/drawer_header"
         app:itemTextColor="@color/colorAccent"
+        app:itemIconTint="@color/colorAccent"
         android:background="@color/blue_grey_900"/>
 </android.support.v4.widget.DrawerLayout>

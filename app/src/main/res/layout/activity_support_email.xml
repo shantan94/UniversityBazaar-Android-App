@@ -4,7 +4,8 @@
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:fitsSystemWindows="true">
+    android:fitsSystemWindows="true"
+    >
 
     <LinearLayout
         android:orientation="vertical"
@@ -20,18 +21,39 @@
             android:background="@color/colorAccent"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
 
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/blue_grey_900">
+    android:layout_height="match_parent">
 
-    <ListView
-        android:id="@+id/textView2"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:divider="@null"
-        android:transcriptMode="alwaysScroll"
-        android:background="@color/blue_grey_900"/>
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter your User ID"
+            android:textColor="@color/colorAccent"
+            android:id="@+id/id" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Enter Your Email-ID"
+            android:textColor="@color/colorAccent"
+            android:id="@+id/email" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="220dp"
+            android:hint="Enter Description of the Issue"
+            android:inputType="text|textMultiLine"
+            android:textColor="@color/colorAccent"
+            android:id="@+id/issue"/>
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Send"
+            android:background="@drawable/button_border"
+            android:textColor="@color/colorAccent"
+            android:id="@+id/send"/>
 
     <com.google.android.gms.ads.AdView
         xmlns:ads="http://schemas.android.com/apk/res-auto"
@@ -44,7 +66,7 @@
         ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
     </com.google.android.gms.ads.AdView>
 
-        </RelativeLayout>
+</LinearLayout>
     </LinearLayout>
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view"
@@ -54,7 +76,7 @@
         android:fitsSystemWindows="true"
         app:menu="@layout/drawer_view"
         app:headerLayout="@layout/drawer_header"
-        android:background="@color/blue_grey_900"
+        app:itemTextColor="@color/colorAccent"
         app:itemIconTint="@color/colorAccent"
-        app:itemTextColor="@color/colorAccent"/>
+        android:background="@color/blue_grey_900"/>
 </android.support.v4.widget.DrawerLayout>

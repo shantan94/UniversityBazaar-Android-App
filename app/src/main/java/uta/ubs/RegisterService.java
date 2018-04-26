@@ -76,7 +76,8 @@ public class RegisterService {
             JSONObject result = new JSONObject(rd.readLine());
             rd.close();
             conn.disconnect();
-            return result.getString("message");
+            JSONObject result1 = (JSONObject) result.getJSONArray("data").get(0);
+            return result.getString("message") + " " + result1.getString("name");
         }
         catch (Exception e){
             e.printStackTrace();

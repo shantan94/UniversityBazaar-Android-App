@@ -114,7 +114,7 @@ public class ClubService {
         return temp;
     }
 
-    public String insertClubMember(String clubname, String member){
+    public String insertClubMember(String clubname, String member, String username){
         try{
             URL url = new URL(endpoint + "/users/insertclubmembers");
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
@@ -127,6 +127,7 @@ public class ClubService {
             JSONObject user = new JSONObject();
             user.put("clubname", clubname);
             user.put("member", member);
+            user.put("membername", username);
             OutputStream out = conn.getOutputStream();
             Writer writer = new OutputStreamWriter(out, "UTF-8");
             writer.write(user.toString());

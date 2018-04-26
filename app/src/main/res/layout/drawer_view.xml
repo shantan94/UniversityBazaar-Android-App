@@ -26,6 +26,10 @@
             android:icon="@drawable/listitem"
             android:title="Item Upload" />
         <item
+            android:id="@+id/nav_supportemail"
+            android:icon="@drawable/supportemail"
+            android:title="Support email" />
+        <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/logout"
             android:title="LogOut" />

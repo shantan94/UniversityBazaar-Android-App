@@ -12,10 +12,13 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
@@ -39,6 +42,8 @@ public class CreateClub extends AppCompatActivity {
     ClubService cs;
     DrawerLayout mdl;
     NavigationView nv;
+    String username;
+    TextView countword;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -54,9 +59,11 @@ public class CreateClub extends AppCompatActivity {
         nv = findViewById(R.id.nav_view);
         sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         id = sharedPreferences.getString("userid",null).toString();
+        username = sharedPreferences.getString("username",null).toString();
         send = (Button) findViewById(R.id.Csubmit);
         cname = (EditText) findViewById(R.id.Cname);
         cdes = (EditText) findViewById(R.id.Cdes);
+        countword = (TextView) findViewById(R.id.count);
         cs = new ClubService();
 
         // Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713
@@ -64,6 +71,29 @@ public class CreateClub extends AppCompatActivity {
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+        cdes.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                return;
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                int length = s.length();
+                if(length >= 100) {
+                    countword.setText(length + "/100");
+                    Toast.makeText(getApplicationContext(), "Club description should be less than 100 characters", Toast.LENGTH_SHORT).show();
+                }
+                else
+                    countword.setText(length + "/100");
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                return;
+            }
+        });
 
         mAdView.setAdListener(new AdListener() {
             @Override
@@ -142,6 +172,11 @@ public class CreateClub extends AppCompatActivity {
                         next.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(next);
                     }
+                    case R.id.nav_supportemail:{
+                        mdl.closeDrawers();
+                        Intent next = new Intent(getApplicationContext(), SupportEmail.class);
+                        startActivity(next);
+                    }
                 }
                 return false;
             }
@@ -152,12 +187,16 @@ public class CreateClub extends AppCompatActivity {
             public void onClick(View v) {
                 String name = cname.getText().toString();
                 String des = cdes.getText().toString();
-                String status = cs.insertClub(name, des, id);
-                String status1 = cs.insertClubMember(name, id);
-                System.out.println(status1);
-                Toast.makeText(getApplicationContext(), status, Toast.LENGTH_SHORT).show();
-                Intent next = new Intent(getApplicationContext(), Clubs.class);
-                startActivity(next);
+                if(name.length() <= 4 || name.length() >= 20)
+                    Toast.makeText(getApplicationContext(), "Club name should be between 4 and 20 characters", Toast.LENGTH_SHORT).show();
+                else {
+                    String status = cs.insertClub(name, des, id);
+                    String status1 = cs.insertClubMember(name, id, username);
+                    System.out.println(status1);
+                    Toast.makeText(getApplicationContext(), status, Toast.LENGTH_SHORT).show();
+                    Intent next = new Intent(getApplicationContext(), Clubs.class);
+                    startActivity(next);
+                }
             }
         });
     }

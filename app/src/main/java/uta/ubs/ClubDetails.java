@@ -69,6 +69,7 @@ public class ClubDetails extends AppCompatActivity {
     DrawerLayout mdl;
     NavigationView nv;
     Button ml;
+    String username;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -98,6 +99,7 @@ public class ClubDetails extends AppCompatActivity {
         list1 = cs.getClubMessages(b.getString("name"));
         sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         id = sharedPreferences.getString("userid",null).toString();
+        username = sharedPreferences.getString("username",null).toString();
         ca = new ChatAdapter(this, list1, id);
         lv = (ListView) findViewById(R.id.listView);
         lv.setAdapter(ca);
@@ -199,6 +201,11 @@ public class ClubDetails extends AppCompatActivity {
                         next.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                         startActivity(next);
                     }
+                    case R.id.nav_supportemail:{
+                        mdl.closeDrawers();
+                        Intent next = new Intent(getApplicationContext(), SupportEmail.class);
+                        startActivity(next);
+                    }
                 }
                 return false;
             }
@@ -260,7 +267,7 @@ public class ClubDetails extends AppCompatActivity {
         b1.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String status = cs.insertClubMember(b.getString("name"), id);
+                String status = cs.insertClubMember(b.getString("name"), id, username);
                 Toast.makeText(getApplicationContext(), status, Toast.LENGTH_SHORT).show();
                 if(!status.equals("Failed")){
                     Intent next = getIntent();
