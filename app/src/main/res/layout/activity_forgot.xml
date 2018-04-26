@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="uta.ubs.forgotActivity">
+    tools:context="uta.ubs.forgotActivity"
+    android:background="@color/blue_grey_900">
 
     <EditText
         android:id="@+id/editTextEmailForgot"
@@ -15,6 +16,8 @@
         android:layout_marginTop="166dp"
         android:ems="10"
         android:hint="Enter Email Address"
+        android:textColor="@color/colorAccent"
+        android:textColorHint="@color/colorAccent"
         android:inputType="textEmailAddress" />
 
     <Button
@@ -23,7 +26,9 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:text="Send Email" />
+        android:text="Send Email"
+        android:textColor="@color/colorAccent"
+        android:background="@drawable/button_border"/>
 
     <TextView
         android:id="@+id/textView15"
@@ -35,6 +40,7 @@
         android:text="Forgot Password"
         android:textSize="24sp"
         android:textStyle="bold"
+        android:textColor="@color/colorAccent"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true" />
 </RelativeLayout>

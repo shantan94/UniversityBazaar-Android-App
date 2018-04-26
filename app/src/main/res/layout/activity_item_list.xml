@@ -4,7 +4,8 @@
     xmlns:card_view="http://schemas.android.com/apk/res-auto"
     android:orientation="horizontal"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:background="@color/blue_grey_900">
 
     <android.support.v7.widget.CardView
         android:id="@+id/card_view_lend"
@@ -13,15 +14,18 @@
         android:layout_gravity="center"
         android:layout_margin="5dp"
         card_view:cardCornerRadius="2dp"
+        card_view:cardBackgroundColor="@color/blue_grey_900"
         card_view:contentPadding="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:background="@color/blue_grey_900">
 
             <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_weight="0.5">
+                android:layout_width="wrap_content" android:layout_height="match_parent" android:layout_weight="0.5"
+                android:background="@color/blue_grey_900">
 
                 <ImageView
                     android:layout_width="200dp"
@@ -32,41 +36,47 @@
 
             <LinearLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent" android:orientation="vertical" android:layout_weight="0.5">
+                android:layout_height="match_parent" android:orientation="vertical" android:layout_weight="0.5"
+                android:background="@color/blue_grey_900">
 
                 <TextView
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/item_name"
                     android:singleLine="false"
-                    android:gravity="center_horizontal"/>
+                    android:gravity="center_horizontal"
+                    android:textColor="@color/colorAccent"/>
 
                 <TextView
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/description"
                     android:gravity="center_horizontal"
-                    android:singleLine="false"/>
+                    android:singleLine="false"
+                    android:textColor="@color/colorAccent"/>
 
                 <TextView
                     android:layout_width="200dp"
                     android:layout_height="wrap_content"
                     android:id="@+id/price"
                     android:gravity="center_horizontal"
-                    android:singleLine="false"/>
+                    android:singleLine="false"
+                    android:textColor="@color/colorAccent"/>
 
                 <TextView
                     android:layout_width="200dp"
                     android:gravity="center_horizontal"
                     android:layout_height="wrap_content"
                     android:id="@+id/userid"
-                    android:singleLine="false"/>
+                    android:singleLine="false"
+                    android:textColor="@color/colorAccent"/>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:id="@+id/imageid"
-                    android:visibility="gone"/>
+                    android:visibility="gone"
+                    android:textColor="@color/colorAccent"/>
 
             </LinearLayout>
 

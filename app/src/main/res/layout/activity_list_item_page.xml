@@ -10,7 +10,8 @@
         android:orientation="vertical"
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/blue_grey_900">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -21,34 +22,42 @@
 
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/blue_grey_900">
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/item_name"
         android:maxLength="30"
-        android:hint="Enter item name"/>
+        android:hint="Enter item name"
+        android:textColor="@color/colorAccent"
+        android:textColorHint="@color/colorAccent"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/description"
         android:maxLength="300"
-        android:hint="Enter description"/>
+        android:hint="Enter description"
+        android:textColor="@color/colorAccent"
+        android:textColorHint="@color/colorAccent"/>
 
     <TextView
         android:layout_width="80dp"
         android:layout_height="wrap_content"
         android:id="@+id/count"
         android:textColor="@color/grey_400"
-        android:textSize="10dp"/>
+        android:textSize="10dp"
+        />
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/select"
-        android:text="Select Image"/>
+        android:text="Select Image"
+        android:textColor="@color/colorAccent"
+        android:background="@drawable/button_border"/>
 
     <ImageView
         android:layout_width="match_parent"
@@ -56,22 +65,28 @@
         android:id="@+id/post_image"/>
 
     <Spinner
+        android:id="@+id/type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/type"></Spinner>
+        android:popupBackground="@color/light_green_500"
+        android:theme="@style/AppTheme"></Spinner>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/price"
         android:inputType="numberDecimal"
-        android:hint="Enter price"/>
+        android:hint="Enter price"
+        android:textColor="@color/colorAccent"
+        android:textColorHint="@color/colorAccent"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/post"
-        android:text="Post"/>
+        android:text="Post"
+        android:background="@drawable/button_border"
+        android:textColor="@color/colorAccent"/>
 
         </LinearLayout>
     </LinearLayout>
@@ -82,5 +97,7 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:menu="@layout/drawer_view"
-        app:headerLayout="@layout/drawer_header"/>
+        app:headerLayout="@layout/drawer_header"
+        app:itemTextColor="@color/colorAccent"
+        android:background="@color/blue_grey_900"/>
 </android.support.v4.widget.DrawerLayout>

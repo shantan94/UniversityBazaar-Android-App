@@ -7,11 +7,13 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:textColor="@color/colorAccent">
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/userid"/>
+            android:id="@+id/userid"
+            android:textColor="@color/colorAccent"/>
         <LinearLayout
             android:id="@+id/contentWithBackground"
             android:layout_width="wrap_content"
@@ -26,12 +28,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/message"
-                android:layout_marginRight="10dp" />
+                android:layout_marginRight="10dp"
+                android:textColor="@color/colorAccent"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/date"
                 android:textSize="8dp"
+                android:textColor="@color/colorAccent"
                 android:layout_marginRight="10dp" />
         </LinearLayout>
     </LinearLayout>

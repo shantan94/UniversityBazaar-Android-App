@@ -22,14 +22,17 @@
 <LinearLayout android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:background="@color/blue_grey_900">
 
     <EditText
         android:layout_width="335dp"
         android:layout_height="wrap_content"
         android:hint="Club Name"
         android:layout_gravity="center"
-        android:id="@+id/Cname"/>
+        android:id="@+id/Cname"
+        android:textColor="@color/colorAccent"
+        android:textColorHint="@color/colorAccent"/>
 
     <EditText
         android:layout_width="343dp"
@@ -37,6 +40,8 @@
         android:singleLine="false"
         android:layout_gravity="center"
         android:hint="Enter description, timings etc."
+        android:textColor="@color/colorAccent"
+        android:textColorHint="@color/colorAccent"
         android:id="@+id/Cdes"/>
 
     <Button
@@ -44,7 +49,9 @@
         android:layout_height="wrap_content"
         android:text="SUBMIT"
         android:layout_gravity="center"
-        android:id="@+id/Csubmit"/>
+        android:id="@+id/Csubmit"
+        android:background="@drawable/button_border"
+        android:textColor="@color/colorAccent"/>
 
 </LinearLayout>
     </LinearLayout>
@@ -55,5 +62,7 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:menu="@layout/drawer_view"
-        app:headerLayout="@layout/drawer_header"/>
+        app:headerLayout="@layout/drawer_header"
+        android:background="@color/blue_grey_900"
+        app:itemTextColor="@color/colorAccent"/>
 </android.support.v4.widget.DrawerLayout>

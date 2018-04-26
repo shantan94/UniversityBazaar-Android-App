@@ -10,7 +10,8 @@
         android:orientation="vertical"
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:background="@color/blue_grey_900">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
@@ -22,25 +23,30 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
     android:orientation="vertical"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/blue_grey_900">
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/clubname"
-        android:textSize="16dp"/>
+        android:textSize="16dp"
+        android:textColor="@color/colorAccent"/>
 
     <Button
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/join"
-        android:text="Join Club"/>
+        android:text="Join Club"
+        android:textColor="@color/colorAccent"
+        android:background="@drawable/button_border"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/relative"
-        android:visibility="gone">
+        android:visibility="gone"
+        android:background="@drawable/button_border">
 
         <ListView
             android:id="@+id/listView"
@@ -56,7 +62,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/count"
-            android:layout_above="@+id/linearLayout"/>
+            android:layout_above="@+id/linearLayout"
+            android:textColor="@color/colorAccent"/>
 
         <LinearLayout
             android:id="@+id/linearLayout"
@@ -73,14 +80,19 @@
                 android:layout_gravity="bottom"
                 android:layout_weight="1"
                 android:hint="Enter a Message"
-                android:maxLength="300"/>
+                android:textColor="@color/colorAccent"
+                android:textColorHint="@color/colorAccent"
+                android:maxLength="300"
+                />
 
             <Button
                 android:id="@+id/send"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="bottom"
-                android:text="Send Data" />
+                android:text="Send Data"
+                android:textColor="@color/colorAccent"
+                android:background="@drawable/button_border"/>
 
 
         </LinearLayout>
@@ -96,5 +108,7 @@
         android:layout_gravity="start"
         android:fitsSystemWindows="true"
         app:menu="@layout/drawer_view"
+        android:background="@color/blue_grey_900"
+        app:itemTextColor="@color/colorAccent"
         app:headerLayout="@layout/drawer_header"/>
 </android.support.v4.widget.DrawerLayout>
