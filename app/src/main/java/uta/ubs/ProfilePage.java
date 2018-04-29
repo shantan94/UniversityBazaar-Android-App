@@ -20,6 +20,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -27,6 +28,7 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.squareup.picasso.Picasso;
 
 import java.util.Map;
 import java.util.regex.Pattern;
@@ -57,6 +59,9 @@ public class ProfilePage extends AppCompatActivity implements AdapterView.OnItem
     String value = "";
     DrawerLayout mdl;
     NavigationView nv;
+    ImageView profile;
+    ImageView profile1;
+    Context context;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -74,9 +79,15 @@ public class ProfilePage extends AppCompatActivity implements AdapterView.OnItem
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
         mdl = findViewById(R.id.drawer_layout);
         nv = findViewById(R.id.nav_view);
+        context = this;
         sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         ps = new ProfileService();
+        profile = (ImageView) findViewById(R.id.profile_picture);
+        profile1 = (ImageView) nv.getHeaderView(0).findViewById(R.id.profile_picture);
         Map<String,String> hm = ps.getProfile(sharedPreferences.getString("userid",null).toString());
+        String imageid = sharedPreferences.getString("imageid",null).toString();
+        Picasso.with(context).load("https://s3-us-west-2.amazonaws.com/item-bucket/" + imageid).into(profile);
+        Picasso.with(context).load("https://s3-us-west-2.amazonaws.com/item-bucket/" + imageid).into(profile1);
         Log.d("dfs",hm.get("name"));
         name = (EditText) findViewById(R.id.name);
         age = (EditText) findViewById(R.id.age);

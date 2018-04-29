@@ -25,6 +25,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -32,6 +33,7 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -62,6 +64,9 @@ public class HomeActivity extends AppCompatActivity {
     int chatSize = 300;
     DrawerLayout mdl;
     NavigationView nv;
+    String imageid = "";
+    Context context;
+    ImageView profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,9 +80,14 @@ public class HomeActivity extends AppCompatActivity {
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
         mdl = findViewById(R.id.drawer_layout);
         nv = findViewById(R.id.nav_view);
+        context = this;
         lv = (ListView) findViewById(R.id.textView2);
+        profile = (ImageView) nv.getHeaderView(0).findViewById(R.id.profile_picture);
         sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         id = sharedPreferences.getString("userid",null).toString();
+        imageid = sharedPreferences.getString("imageid",null).toString();
+        System.out.println(profile);
+        Picasso.with(context).load("https://s3-us-west-2.amazonaws.com/item-bucket/" + imageid).into(profile);
         ms = new MessageService();
         templist = ms.getMessages();
         list = new ArrayList<>(templist);

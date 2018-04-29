@@ -92,9 +92,11 @@ public class LoginActivity extends AppCompatActivity {
                 if(status.split(" ")[0].equals("Passed")){
                     Toast.makeText(getApplicationContext(), "Login Successful", Toast.LENGTH_SHORT).show();
                     String name = status.split(" ")[1];
+                    String imageid = status.split(" ")[2];
                     SharedPreferences.Editor editor = sharedPreferences.edit();
                     editor.putString("userid", userid.getText().toString());
                     editor.putString("username", name);
+                    editor.putString("imageid", imageid);
                     editor.commit();
                     Intent next = new Intent(getApplicationContext(), HomeActivity.class);
                     startActivity(next);

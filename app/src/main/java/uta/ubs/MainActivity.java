@@ -1,15 +1,23 @@
 package uta.ubs;
 
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.provider.MediaStore;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Spinner;
 import android.widget.Toast;
 
@@ -38,6 +46,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private Spinner spinner = null;
     private String value = "";
     RegisterService rs = null;
+    Button upload_image;
+    ImageView image = null;
+    ProgressDialog progressDialog;
+    Bitmap selected_image;
+    Context context;
+    String name_val;
+    int age_val;
+    String gender_val;
+    String email_val;
+    String password_val;
+    String userid_val;
+    String phone_val;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -47,6 +67,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         }
         setContentView(R.layout.main_page);
         rs = new RegisterService();
+        context = this;
         spinner = (Spinner) findViewById(R.id.gender);
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this, R.array.gender_array, android.R.layout.simple_spinner_dropdown_item);
         spinner.setAdapter(adapter);
@@ -57,6 +78,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
 
         mAdView.setAdListener(new AdListener() {
             @Override
@@ -98,6 +120,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         number = (EditText) findViewById(R.id.number);
         register = (Button) findViewById(R.id.submit);
         register.setOnClickListener(this);
+        upload_image = (Button) findViewById(R.id.profile_upload);
+        upload_image.setOnClickListener(this);
+        image = findViewById(R.id.profile_pic);
         spinner.setOnItemSelectedListener(this);
     }
 
@@ -119,24 +144,41 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             else
                 setAllValues();
         }
+        else if(view == upload_image){
+            Intent getImage = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+            startActivityForResult(getImage, 0);
+        }
     }
 
     public void setAllValues(){
-        String name = this.name.getText().toString();
-        int age = Integer.parseInt(this.age.getText().toString());
-        String gender = value;
-        String email = this.email.getText().toString();
-        String password = this.password.getText().toString();
-        String userid = this.userid.getText().toString();
-        String phone = this.number.getText().toString();
-        String status = rs.addUser(name, age, gender, email ,password, userid, phone);
-        if(status.equals("Insert Successful")) {
-            Toast.makeText(getApplicationContext(), "Registration Complete", Toast.LENGTH_SHORT).show();
-            Intent next = new Intent(getApplicationContext(), LoginActivity.class);
-            startActivity(next);
+        name_val = this.name.getText().toString();
+        age_val = Integer.parseInt(this.age.getText().toString());
+        gender_val = value;
+        email_val = this.email.getText().toString();
+        password_val = this.password.getText().toString();
+        userid_val = this.userid.getText().toString();
+        phone_val = this.number.getText().toString();
+        progressDialog = ProgressDialog.show(context, "UniversityBazaar", "Posting Data", true, false);
+        MainActivity.AsyncTaskRunner ma = new MainActivity.AsyncTaskRunner();
+        ma.execute();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK){
+            Uri targetUri = data.getData();
+            Bitmap bitmap;
+            try {
+                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
+                selected_image = bitmap;
+                image.setImageBitmap(bitmap);
+                image.setVisibility(View.VISIBLE);
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
         }
-        else
-            Toast.makeText(getApplicationContext(), "Registration Failed", Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -147,5 +189,29 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
         return;
+    }
+
+    private class AsyncTaskRunner extends AsyncTask<String, String, String> {
+
+        private String resp;
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String status = rs.addUser(name_val, age_val, gender_val, email_val ,password_val, userid_val, phone_val, selected_image);
+            resp = status;
+            return resp;
+        }
+
+        @Override
+        protected void onPostExecute(String resp){
+            progressDialog.dismiss();
+            if(resp.equals("Insert Successful")) {
+                Toast.makeText(getApplicationContext(), "Registration Complete", Toast.LENGTH_SHORT).show();
+                Intent next = new Intent(getApplicationContext(), LoginActivity.class);
+                startActivity(next);
+            }
+            else
+                Toast.makeText(getApplicationContext(), "Registration Failed", Toast.LENGTH_SHORT).show();
+        }
     }
 }
