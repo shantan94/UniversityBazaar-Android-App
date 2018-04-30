@@ -61,7 +61,7 @@
         android:text="SUBMIT"
         android:layout_gravity="center"
         android:id="@+id/Csubmit"
-        android:background="@drawable/button_border"
+        android:background="@drawable/ripple_effect"
         android:textColor="@color/colorAccent"/>
 
     <com.google.android.gms.ads.AdView

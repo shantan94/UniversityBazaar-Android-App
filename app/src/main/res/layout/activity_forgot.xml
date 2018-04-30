@@ -28,7 +28,7 @@
         android:layout_centerVertical="true"
         android:text="Send Email"
         android:textColor="@color/colorAccent"
-        android:background="@drawable/button_border"/>
+        android:background="@drawable/ripple_effect"/>
 
     <TextView
         android:id="@+id/textView15"

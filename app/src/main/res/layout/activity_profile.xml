@@ -20,88 +20,94 @@
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
 
         <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-            android:orientation="vertical" android:layout_width="match_parent"
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/blue_grey_900">
+            android:background="@color/blue_grey_900"
+            android:orientation="vertical">
 
-            <ImageView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:scaleType="fitXY"
-                android:id="@+id/profile_picture"/>
+
+            <de.hdodenhof.circleimageview.CircleImageView xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/profile_picture"
+                android:layout_width="126dp"
+                android:layout_height="126dp"
+                android:layout_gravity="center_horizontal"
+
+
+                android:layout_marginTop="90dp"
+                android:src="@drawable/profile"
+                app:civ_border_color="@color/colorAccent"
+                app:civ_border_width="2dp"
+
+                />
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:enabled="false"
                 android:id="@+id/name"
-                android:textColor="@color/et_endis"/>
-
-            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="false"
+                android:textColor="@color/et_endis" />
+
+            <EditText
                 android:id="@+id/age"
-                android:textColor="@color/et_endis"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:enabled="false"
+                android:textColor="@color/et_endis" />
 
             <Spinner
+                android:id="@+id/gender"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/gender"
                 android:popupBackground="@color/light_green_500"
 
                 android:textColor="@color/colorAccent"></Spinner>
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:enabled="false"
                 android:id="@+id/email"
-                android:textColor="@color/et_endis"/>
-
-            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="false"
+                android:textColor="@color/et_endis" />
+
+            <EditText
                 android:id="@+id/userid"
-                android:textColor="@color/et_endis"/>
-
-            <EditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:enabled="false"
+                android:textColor="@color/et_endis" />
+
+            <EditText
                 android:id="@+id/number"
-                android:textColor="@color/et_endis"/>
-
-            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="edit"
-                android:textColor="@color/colorAccent"
+                android:enabled="false"
+                android:textColor="@color/et_endis" />
+
+            <Button
                 android:id="@+id/edit"
-                android:background="@drawable/button_border"
-                />
-
-            <Button
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="@drawable/ripple_effect"
+                android:text="edit"
+                android:textColor="@color/colorAccent" />
+
+            <Button
+                android:id="@+id/save"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/ripple_effect"
                 android:text="save"
                 android:textColor="@color/colorAccent"
-                android:id="@+id/save"
-                android:visibility="gone"
-                android:background="@drawable/button_border"/>
+                android:visibility="gone" />
 
-            <com.google.android.gms.ads.AdView
-                xmlns:ads="http://schemas.android.com/apk/res-auto"
+            <com.google.android.gms.ads.AdView xmlns:ads="http://schemas.android.com/apk/res-auto"
                 android:id="@+id/adView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
                 android:layout_alignParentBottom="true"
+                android:layout_centerHorizontal="true"
                 ads:adSize="SMART_BANNER"
-                ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
-            </com.google.android.gms.ads.AdView>
+                ads:adUnitId="ca-app-pub-3940256099942544/6300978111"></com.google.android.gms.ads.AdView>
 
         </LinearLayout>
 

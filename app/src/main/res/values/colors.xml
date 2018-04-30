@@ -1,8 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#8BC34A</color>
-    <color name="colorPrimaryDark">#558B2F</color>
-    <color name="colorAccent">#8BC34A</color>
+
+    <color name="colorPrimary">#FDD835</color>
+    <color name="colorPrimaryDark">#FDD835</color>
+    <color name="colorAccent">#FDD835</color>
+
+    <color name="colorPrimaryb">#8BC34A</color>
+    <color name="colorPrimaryDarkb">#558B2F</color>
+    <color name="colorAccentb">#8BC34A</color>
+
     <color name="colorUtaOrange">#FFA500</color>
     <color name="red_50">#FFEBEE</color>
     <color name="red_100">#FFCDD2</color>

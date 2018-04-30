@@ -25,13 +25,13 @@
         android:layout_height="wrap_content"
         android:text="LOGIN"
         android:textSize="20dp"
-        android:textColor="@color/light_green_500"
+        android:textColor="@color/colorAccent"
         android:paddingLeft="66dp"
         android:paddingRight="66dp"
         android:layout_marginTop="41dp"
         android:layout_below="@+id/Logo"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/button_border"/>
+        android:background="@drawable/ripple_effect"/>
 
     <Button
         android:id="@+id/button2"
@@ -43,10 +43,13 @@
 
         android:paddingLeft="50dp"
         android:paddingRight="50dp"
-        android:textColor="@color/light_green_500"
+        android:textColor="@color/colorAccent"
         android:layout_below="@+id/Login"
         android:layout_centerHorizontal="true"
-        android:background="@drawable/button_border"/>
+        android:background="@drawable/ripple_effect"/>
+
+
+
 
     <com.google.android.gms.ads.AdView
         xmlns:ads="http://schemas.android.com/apk/res-auto"

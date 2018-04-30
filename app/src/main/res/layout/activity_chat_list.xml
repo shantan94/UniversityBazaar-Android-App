@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             android:background="@drawable/mychat"
+            android:backgroundTint="@color/white"
             android:paddingLeft="10dp"
             android:paddingBottom="10dp"
             android:paddingTop="10dp"

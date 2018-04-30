@@ -19,6 +19,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="left"
             android:background="@drawable/other"
+            android:backgroundTint="@color/black"
             android:textAlignment="center"
             android:paddingLeft="10dp"
             android:paddingBottom="10dp"
@@ -28,12 +29,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/message"
+                android:textColor="@color/white"
                 android:layout_marginLeft="10dp"
                 android:layout_gravity="center_horizontal"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/date"
+                android:textColor="@color/white"
                 android:textSize="8dp"
                 android:layout_marginLeft="10dp"
                 android:layout_gravity="center_horizontal"/>

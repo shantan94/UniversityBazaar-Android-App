@@ -50,7 +50,7 @@
         android:id="@+id/join"
         android:text="Join Club"
         android:textColor="@color/colorAccent"
-        android:background="@drawable/button_border"/>
+        android:background="@drawable/ripple_effect"/>
 
     <Button
         android:layout_width="match_parent"
@@ -58,7 +58,7 @@
         android:id="@+id/memberlist"
         android:text="Club Members"
         android:textColor="@color/colorAccent"
-        android:background="@drawable/button_border"/>
+        android:background="@drawable/ripple_effect"/>
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -111,7 +111,7 @@
                 android:layout_gravity="bottom"
                 android:text="Send Data"
                 android:textColor="@color/colorAccent"
-                android:background="@drawable/button_border"/>
+                android:background="@drawable/ripple_effect"/>
 
 
         </LinearLayout>

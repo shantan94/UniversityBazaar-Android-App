@@ -181,7 +181,7 @@
             android:layout_marginRight="40dp"
             android:layout_marginTop="20dp"
             android:layout_below="@+id/number_view"
-            android:background="@drawable/button_border"
+            android:background="@drawable/ripple_effect"
             android:text="Choose Profile Picture"
             android:textColor="@color/light_green_500" />
 
@@ -200,7 +200,7 @@
         android:layout_marginRight="40dp"
         android:layout_marginTop="20dp"
         android:layout_marginBottom="20dp"
-        android:background="@drawable/button_border"
+        android:background="@drawable/ripple_effect"
         android:text="Register"
         android:layout_below="@+id/profile_pic"
         android:textColor="@color/light_green_500" />
