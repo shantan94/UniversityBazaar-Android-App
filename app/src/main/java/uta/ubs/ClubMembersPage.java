@@ -13,12 +13,16 @@ import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -36,6 +40,15 @@ public class ClubMembersPage extends AppCompatActivity {
     ArrayList<MyNegotiations> list = new ArrayList<>();
     Bundle b;
     ListView lv;
+    String username;
+    ImageView profile;
+    TextView profile_name;
+    Context context;
+    SharedPreferences sharedPreferences;
+    String id;
+    String imageid;
+    ImageView club_pic;
+    String imageid1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,9 +62,21 @@ public class ClubMembersPage extends AppCompatActivity {
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
         mdl = findViewById(R.id.drawer_layout);
         nv = findViewById(R.id.nav_view);
+        context = this;
+        profile = (ImageView) nv.getHeaderView(0).findViewById(R.id.profile_picture);
+        profile_name = (TextView) nv.getHeaderView(0).findViewById(R.id.profile_username);
+        club_pic = (ImageView) findViewById(R.id.profile_pic);
+        sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+        id = sharedPreferences.getString("userid",null).toString();
+        imageid = sharedPreferences.getString("imageid",null).toString();
+        username = sharedPreferences.getString("username",null).toString();
+        profile_name.setText(username);
+        Picasso.with(context).load("https://s3-us-west-2.amazonaws.com/item-bucket/" + imageid).into(profile);
         lv = findViewById(R.id.listView);
         Intent current = this.getIntent();
         b = current.getExtras();
+        imageid1 = b.getString("imageid");
+        Picasso.with(context).load("https://s3-us-west-2.amazonaws.com/item-bucket/" + imageid1).into(club_pic);
         cs = new ClubService();
         list = cs.memberList(b.getString("clubname"));
         cma = new ClubMembersAdapter(this, list);
@@ -62,6 +87,14 @@ public class ClubMembersPage extends AppCompatActivity {
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent next = new Intent(getApplicationContext(), ProfilePage.class);
+                startActivity(next);
+            }
+        });
 
         mAdView.setAdListener(new AdListener() {
             @Override

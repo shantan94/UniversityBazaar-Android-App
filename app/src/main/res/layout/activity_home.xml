@@ -135,14 +135,53 @@
             </LinearLayout>
     </LinearLayout>
     <android.support.design.widget.NavigationView
-        android:id="@+id/nav_view"
+        android:id="@+id/nav_view_parent"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:fitsSystemWindows="true"
-        app:menu="@layout/drawer_view"
-        app:headerLayout="@layout/drawer_header"
-        android:background="@color/blue_grey_900"
-        app:itemIconTint="@color/colorAccent"
-        app:itemTextColor="@color/colorAccent"/>
+        android:fitsSystemWindows="true">
+
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/scrollView">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+            <android.support.design.widget.NavigationView
+                android:id="@+id/nav_view"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="start"
+                android:fitsSystemWindows="true"
+                app:menu="@layout/drawer_view"
+                app:headerLayout="@layout/drawer_header"
+                android:background="@color/blue_grey_900"
+                app:itemIconTint="@color/colorAccent"
+                app:itemTextColor="@color/colorAccent"/>
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/nav_view"
+                    android:background="@color/blue_grey_900"
+                    android:layout_alignParentBottom="true"
+                    android:src="@drawable/uta_logo"/>
+
+            <!--suppress AndroidDomInspection -->
+                    <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@Copyright UTA"
+                android:textColor="@color/white"
+                android:layout_alignParentBottom="true"
+                android:gravity="center_horizontal"/>
+
+                </RelativeLayout>
+
+            </ScrollView>
+
+    </android.support.design.widget.NavigationView>
 </android.support.v4.widget.DrawerLayout>

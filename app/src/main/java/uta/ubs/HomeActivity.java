@@ -67,6 +67,8 @@ public class HomeActivity extends AppCompatActivity {
     String imageid = "";
     Context context;
     ImageView profile;
+    String username;
+    TextView profile_name;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -83,10 +85,12 @@ public class HomeActivity extends AppCompatActivity {
         context = this;
         lv = (ListView) findViewById(R.id.textView2);
         profile = (ImageView) nv.getHeaderView(0).findViewById(R.id.profile_picture);
+        profile_name = (TextView) nv.getHeaderView(0).findViewById(R.id.profile_username);
         sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         id = sharedPreferences.getString("userid",null).toString();
         imageid = sharedPreferences.getString("imageid",null).toString();
-        System.out.println(profile);
+        username = sharedPreferences.getString("username",null).toString();
+        profile_name.setText(username);
         Picasso.with(context).load("https://s3-us-west-2.amazonaws.com/item-bucket/" + imageid).into(profile);
         ms = new MessageService();
         templist = ms.getMessages();
@@ -109,6 +113,14 @@ public class HomeActivity extends AppCompatActivity {
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent next = new Intent(getApplicationContext(), ProfilePage.class);
+                startActivity(next);
+            }
+        });
 
         mAdView.setAdListener(new AdListener() {
             @Override

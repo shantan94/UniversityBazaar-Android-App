@@ -1,10 +1,13 @@
 package uta.ubs;
 
+import android.graphics.Bitmap;
+import android.util.Base64;
 import android.util.Log;
 
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -91,6 +94,41 @@ public class ProfileService {
         catch (Exception e){
             e.getStackTrace();
         }
+    }
+
+    public String updateProfilePicture(Bitmap image, String userid){
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
+        byte[] data1 = outputStream.toByteArray();
+        String data = Base64.encodeToString(data1, Base64.DEFAULT);
+        try{
+            URL url = new URL(endpoint + "/users/profile_picture");
+            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+            conn.setRequestMethod("PUT");
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            conn.setUseCaches(false);
+            conn.setAllowUserInteraction(false);
+            conn.setRequestProperty("Content-Type", "application/json");
+            JSONObject user = new JSONObject();
+            user.put("image", data);
+            user.put("userid", userid);
+            OutputStream out = conn.getOutputStream();
+            Writer writer = new OutputStreamWriter(out, "UTF-8");
+            writer.write(user.toString());
+            writer.close();
+            out.close();
+            BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            JSONObject result = new JSONObject(rd.readLine());
+            Log.d("status", result.toString());
+            rd.close();
+            conn.disconnect();
+            return result.getString("message") + " " + result.getString("data");
+        }
+        catch (Exception e){
+            e.getStackTrace();
+        }
+        return "Failed";
     }
 
 }

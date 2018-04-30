@@ -1,9 +1,13 @@
 package uta.ubs;
 
+import android.graphics.Bitmap;
+import android.util.Base64;
+
 import org.json.JSONArray;
 import org.json.JSONObject;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.io.OutputStreamWriter;
@@ -20,7 +24,11 @@ import java.util.List;
 public class ClubService {
     String endpoint = "https://univbazaarservices.herokuapp.com";
 
-    public String insertClub(String name, String des, String userid){
+    public String insertClub(String name, String des, String userid, Bitmap image){
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+        image.compress(Bitmap.CompressFormat.PNG, 0, outputStream);
+        byte[] data1 = outputStream.toByteArray();
+        String data = Base64.encodeToString(data1, Base64.DEFAULT);
         try{
             URL url = new URL(endpoint + "/users/clubs");
             HttpURLConnection conn = (HttpURLConnection)url.openConnection();
@@ -34,6 +42,7 @@ public class ClubService {
             user.put("name", name);
             user.put("description", des);
             user.put("userid", userid);
+            user.put("image", data);
             OutputStream out = conn.getOutputStream();
             Writer writer = new OutputStreamWriter(out, "UTF-8");
             writer.write(user.toString());
@@ -236,7 +245,7 @@ public class ClubService {
             if(result.has("data")) {
                 JSONArray tempres = result.getJSONArray("data");
                 for (int i = 0; i < tempres.length(); i++) {
-                    Club c = new Club(tempres.getJSONObject(i).getString("founder"), tempres.getJSONObject(i).getString("clubname"), tempres.getJSONObject(i).getString("clubdescription"));
+                    Club c = new Club(tempres.getJSONObject(i).getString("founder"), tempres.getJSONObject(i).getString("clubname"), tempres.getJSONObject(i).getString("clubdescription"), tempres.getJSONObject(i).getString("imageid"));
                     temp.add(c);
                 }
             }

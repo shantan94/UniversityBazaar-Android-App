@@ -15,6 +15,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -40,6 +42,13 @@ public class Clubs extends AppCompatActivity implements AdapterView.OnItemClickL
     ClubAdapter ca;
     DrawerLayout mdl;
     NavigationView nv;
+    String username;
+    ImageView profile;
+    TextView profile_name;
+    Context context;
+    SharedPreferences sharedPreferences;
+    String id;
+    String imageid;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,6 +62,15 @@ public class Clubs extends AppCompatActivity implements AdapterView.OnItemClickL
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
         mdl = findViewById(R.id.drawer_layout);
         nv = findViewById(R.id.nav_view);
+        context = this;
+        profile = (ImageView) nv.getHeaderView(0).findViewById(R.id.profile_picture);
+        profile_name = (TextView) nv.getHeaderView(0).findViewById(R.id.profile_username);
+        sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+        id = sharedPreferences.getString("userid",null).toString();
+        imageid = sharedPreferences.getString("imageid",null).toString();
+        username = sharedPreferences.getString("username",null).toString();
+        profile_name.setText(username);
+        Picasso.with(context).load("https://s3-us-west-2.amazonaws.com/item-bucket/" + imageid).into(profile);
         create = (Button) findViewById(R.id.ccbutton);
         lv = (ListView) findViewById(R.id.listView);
         cs = new ClubService();
@@ -66,6 +84,14 @@ public class Clubs extends AppCompatActivity implements AdapterView.OnItemClickL
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent next = new Intent(getApplicationContext(), ProfilePage.class);
+                startActivity(next);
+            }
+        });
 
         mAdView.setAdListener(new AdListener() {
             @Override
@@ -171,10 +197,12 @@ public class Clubs extends AppCompatActivity implements AdapterView.OnItemClickL
         TextView name = (TextView) view.findViewById(R.id.name);
         TextView description = (TextView) view.findViewById(R.id.description);
         TextView userid = (TextView) view.findViewById(R.id.userid);
+        TextView imageid = (TextView) view.findViewById(R.id.imageid);
         Bundle b = new Bundle();
         b.putString("name", name.getText().toString());
         b.putString("description", description.getText().toString());
         b.putString("userid", userid.getText().toString());
+        b.putString("imageid", imageid.getText().toString());
         Intent next = new Intent(getApplicationContext(), ClubDetails.class);
         next.putExtras(b);
         startActivity(next);

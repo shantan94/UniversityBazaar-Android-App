@@ -1,9 +1,15 @@
 package uta.ubs;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.NavigationView;
@@ -18,6 +24,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,6 +32,7 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by shantan on 3/28/2018.
@@ -35,7 +43,6 @@ public class CreateClub extends AppCompatActivity {
     private AdView mAdView;
 
     SharedPreferences sharedPreferences;
-    String id;
     Button send;
     EditText cname;
     EditText cdes;
@@ -44,6 +51,15 @@ public class CreateClub extends AppCompatActivity {
     NavigationView nv;
     String username;
     TextView countword;
+    ImageView profile;
+    TextView profile_name;
+    Context context;
+    String id;
+    String imageid;
+    Button profile_upload;
+    ImageView image;
+    Bitmap selected_image;
+    ProgressDialog progressDialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,9 +73,17 @@ public class CreateClub extends AppCompatActivity {
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
         mdl = findViewById(R.id.drawer_layout);
         nv = findViewById(R.id.nav_view);
+        context = this;
+        profile = (ImageView) nv.getHeaderView(0).findViewById(R.id.profile_picture);
+        profile_name = (TextView) nv.getHeaderView(0).findViewById(R.id.profile_username);
+        profile_upload = (Button) findViewById(R.id.profile_upload);
+        image = (ImageView) findViewById(R.id.profile_pic);
         sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         id = sharedPreferences.getString("userid",null).toString();
+        imageid = sharedPreferences.getString("imageid",null).toString();
         username = sharedPreferences.getString("username",null).toString();
+        profile_name.setText(username);
+        Picasso.with(context).load("https://s3-us-west-2.amazonaws.com/item-bucket/" + imageid).into(profile);
         send = (Button) findViewById(R.id.Csubmit);
         cname = (EditText) findViewById(R.id.Cname);
         cdes = (EditText) findViewById(R.id.Cdes);
@@ -71,6 +95,22 @@ public class CreateClub extends AppCompatActivity {
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+        profile_upload.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent getImage = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(getImage, 0);
+            }
+        });
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent next = new Intent(getApplicationContext(), ProfilePage.class);
+                startActivity(next);
+            }
+        });
 
         cdes.addTextChangedListener(new TextWatcher() {
             @Override
@@ -187,21 +227,30 @@ public class CreateClub extends AppCompatActivity {
         send.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String name = cname.getText().toString();
-                String des = cdes.getText().toString();
-                if(name.length() <= 4 || name.length() >= 20)
-                    Toast.makeText(getApplicationContext(), "Club name should be between 4 and 20 characters", Toast.LENGTH_SHORT).show();
-                else {
-                    String status = cs.insertClub(name, des, id);
-                    String status1 = cs.insertClubMember(name, id, username);
-                    System.out.println(status1);
-                    Toast.makeText(getApplicationContext(), status, Toast.LENGTH_SHORT).show();
-                    Intent next = new Intent(getApplicationContext(), Clubs.class);
-                    startActivity(next);
-                }
+                progressDialog = ProgressDialog.show(context, "UniversityBazaar", "Posting Data", true, false);
+                CreateClub.AsyncTaskRunner cc = new CreateClub.AsyncTaskRunner();
+                cc.execute();
             }
         });
     }
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK){
+            Uri targetUri = data.getData();
+            Bitmap bitmap;
+            try {
+                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
+                selected_image = bitmap;
+                image.setImageBitmap(bitmap);
+                image.setVisibility(View.VISIBLE);
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
@@ -210,5 +259,45 @@ public class CreateClub extends AppCompatActivity {
                 return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private class AsyncTaskRunner extends AsyncTask<String, String, String> {
+
+        private String resp;
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String name = cname.getText().toString();
+            String des = cdes.getText().toString();
+            String status = "";
+            if(name.length() <= 4 || name.length() >= 20) {
+                Toast.makeText(getApplicationContext(), "Club name should be between 4 and 20 characters", Toast.LENGTH_SHORT).show();
+                try {
+                    Thread.sleep(2000);
+                }
+                catch (Exception e){
+                    e.printStackTrace();
+                }
+                return "";
+            }
+            else {
+                status = cs.insertClub(name, des, id, selected_image);
+                String status1 = cs.insertClubMember(name, id, username);
+            }
+            resp = status;
+            return resp;
+        }
+
+        @Override
+        protected void onPostExecute(String resp){
+            progressDialog.dismiss();
+            if(resp.equals("Club created")) {
+                Toast.makeText(getApplicationContext(), "Club created", Toast.LENGTH_SHORT).show();
+                Intent next = new Intent(getApplicationContext(), Clubs.class);
+                startActivity(next);
+            }
+            else
+                Toast.makeText(getApplicationContext(), "Failed to create club", Toast.LENGTH_SHORT).show();
+        }
     }
 }

@@ -20,19 +20,45 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="0.5">
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="90dp"
+                android:id="@+id/image"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="200dp"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="0.5">
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/userid"
+            android:singleLine="false"
             android:gravity="center_horizontal"
             android:textColor="@color/colorAccent"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/imageid"
+            android:visibility="gone"/>
 
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/name"
+            android:singleLine="false"
             android:gravity="center_horizontal"
             android:textColor="@color/colorAccent"/>
 
@@ -44,7 +70,7 @@
             android:singleLine="false"
             android:textColor="@color/colorAccent"/>
 
-
+        </LinearLayout>
 
         </LinearLayout>
 

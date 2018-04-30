@@ -8,11 +8,13 @@ public class Club {
     private String userid;
     private String name;
     private String description;
+    private String imageid;
 
-    public Club(String userid, String name, String description){
+    public Club(String userid, String name, String description, String imageid){
         this.userid = userid;
         this.name = name;
         this.description = description;
+        this.imageid = imageid;
     }
 
     public String getUserid(){
@@ -37,5 +39,13 @@ public class Club {
 
     public void setDescription(String description){
         this.description = description;
+    }
+
+    public String getImageid(){
+        return imageid;
+    }
+
+    public void setImageid(String imageid){
+        this.imageid = imageid;
     }
 }

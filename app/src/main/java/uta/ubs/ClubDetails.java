@@ -26,6 +26,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -35,6 +36,7 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.squareup.picasso.Picasso;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -53,9 +55,7 @@ public class ClubDetails extends AppCompatActivity {
     ArrayList<String> list;
     ClubService cs;
     Button b1;
-    SharedPreferences sharedPreferences;
     RelativeLayout rl;
-    String id;
     ArrayList<Message> list1 = new ArrayList<>();
     ListView lv;
     EditText chat;
@@ -70,6 +70,12 @@ public class ClubDetails extends AppCompatActivity {
     NavigationView nv;
     Button ml;
     String username;
+    ImageView profile;
+    TextView profile_name;
+    Context context;
+    SharedPreferences sharedPreferences;
+    String id;
+    String imageid;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -88,6 +94,9 @@ public class ClubDetails extends AppCompatActivity {
         mdl = findViewById(R.id.drawer_layout);
         nv = findViewById(R.id.nav_view);
         ml = (Button) findViewById(R.id.memberlist);
+        context = this;
+        profile = (ImageView) nv.getHeaderView(0).findViewById(R.id.profile_picture);
+        profile_name = (TextView) nv.getHeaderView(0).findViewById(R.id.profile_username);
         Intent current = this.getIntent();
         b = current.getExtras();
         name = (TextView) findViewById(R.id.clubname);
@@ -99,7 +108,10 @@ public class ClubDetails extends AppCompatActivity {
         list1 = cs.getClubMessages(b.getString("name"));
         sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         id = sharedPreferences.getString("userid",null).toString();
+        imageid = sharedPreferences.getString("imageid",null).toString();
         username = sharedPreferences.getString("username",null).toString();
+        profile_name.setText(username);
+        Picasso.with(context).load("https://s3-us-west-2.amazonaws.com/item-bucket/" + imageid).into(profile);
         ca = new ChatAdapter(this, list1, id);
         lv = (ListView) findViewById(R.id.listView);
         lv.setAdapter(ca);
@@ -115,6 +127,14 @@ public class ClubDetails extends AppCompatActivity {
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent next = new Intent(getApplicationContext(), ProfilePage.class);
+                startActivity(next);
+            }
+        });
 
         mAdView.setAdListener(new AdListener() {
             @Override
@@ -218,6 +238,7 @@ public class ClubDetails extends AppCompatActivity {
             public void onClick(View v) {
                 Bundle b1 = new Bundle();
                 b1.putString("clubname", b.getString("name"));
+                b1.putString("imageid", b.getString("imageid"));
                 Intent next = new Intent(getApplicationContext(), ClubMembersPage.class);
                 next.putExtras(b1);
                 startActivity(next);

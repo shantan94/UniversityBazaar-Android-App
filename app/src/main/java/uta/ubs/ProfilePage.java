@@ -1,18 +1,28 @@
 package uta.ubs;
 
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.StrictMode;
+import android.provider.MediaStore;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.text.Html;
 import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +32,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
@@ -62,6 +73,10 @@ public class ProfilePage extends AppCompatActivity implements AdapterView.OnItem
     ImageView profile;
     ImageView profile1;
     Context context;
+    Bitmap selected_image;
+    ProgressDialog progressDialog;
+    TextView profile_name;
+    String username;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -79,6 +94,7 @@ public class ProfilePage extends AppCompatActivity implements AdapterView.OnItem
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
         mdl = findViewById(R.id.drawer_layout);
         nv = findViewById(R.id.nav_view);
+        profile_name = (TextView) nv.getHeaderView(0).findViewById(R.id.profile_username);
         context = this;
         sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         ps = new ProfileService();
@@ -86,6 +102,8 @@ public class ProfilePage extends AppCompatActivity implements AdapterView.OnItem
         profile1 = (ImageView) nv.getHeaderView(0).findViewById(R.id.profile_picture);
         Map<String,String> hm = ps.getProfile(sharedPreferences.getString("userid",null).toString());
         String imageid = sharedPreferences.getString("imageid",null).toString();
+        username = sharedPreferences.getString("username",null).toString();
+        profile_name.setText(username);
         Picasso.with(context).load("https://s3-us-west-2.amazonaws.com/item-bucket/" + imageid).into(profile);
         Picasso.with(context).load("https://s3-us-west-2.amazonaws.com/item-bucket/" + imageid).into(profile1);
         Log.d("dfs",hm.get("name"));
@@ -120,6 +138,22 @@ public class ProfilePage extends AppCompatActivity implements AdapterView.OnItem
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+        profile1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent next = new Intent(getApplicationContext(), ProfilePage.class);
+                startActivity(next);
+            }
+        });
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent getImage = new Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+                startActivityForResult(getImage, 0);
+            }
+        });
 
         mAdView.setAdListener(new AdListener() {
             @Override
@@ -267,6 +301,45 @@ public class ProfilePage extends AppCompatActivity implements AdapterView.OnItem
     }
 
     @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data){
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == RESULT_OK){
+            Uri targetUri = data.getData();
+            Bitmap bitmap;
+            try {
+                bitmap = BitmapFactory.decodeStream(getContentResolver().openInputStream(targetUri));
+                selected_image = bitmap;
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle(Html.fromHtml("<font color='#FDD835'>Upload Profile Picture</font>"));
+                final View customLayout = getLayoutInflater().inflate(R.layout.activity_dialog_view, null);
+                builder.setView(customLayout);
+                ImageView dialog_image = customLayout.findViewById(R.id.dialog_image);;
+                dialog_image.setImageBitmap(bitmap);
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        progressDialog = ProgressDialog.show(context, "UniversityBazaar", "Updating profile picture", true, false);
+                        ProfilePage.AsyncTaskRunner ma = new ProfilePage.AsyncTaskRunner();
+                        ma.execute();
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.getWindow().setBackgroundDrawableResource(R.color.backgroundPrimary);
+                dialog.show();
+            }
+            catch (Exception e){
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item){
         switch (item.getItemId()){
             case android.R.id.home:
@@ -278,11 +351,40 @@ public class ProfilePage extends AppCompatActivity implements AdapterView.OnItem
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        ((TextView) adapterView.getChildAt(0)).setTextColor(Color.parseColor("#FDD835"));
         value = adapterView.getItemAtPosition(i).toString();
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-        return;
+        ((TextView) adapterView.getChildAt(0)).setTextColor(Color.parseColor("#FDD835"));
+    }
+
+    private class AsyncTaskRunner extends AsyncTask<String, String, String> {
+
+        private String resp;
+
+        @Override
+        protected String doInBackground(String... strings) {
+            String status = ps.updateProfilePicture(selected_image, userid_value);
+            resp = status;
+            return resp;
+        }
+
+        @Override
+        protected void onPostExecute(String resp){
+            progressDialog.dismiss();
+            if(resp.split(" ")[0].equals("Success")) {
+                SharedPreferences.Editor editor = sharedPreferences.edit();
+                editor.putString("imageid", resp.split(" ")[1]);
+                editor.commit();
+                Toast.makeText(getApplicationContext(), "Profile Picture Uploaded", Toast.LENGTH_SHORT).show();
+                Intent next = new Intent(getApplicationContext(), ProfilePage.class);
+                next.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(next);
+            }
+            else
+                Toast.makeText(getApplicationContext(), "Failed to upload", Toast.LENGTH_SHORT).show();
+        }
     }
 }
