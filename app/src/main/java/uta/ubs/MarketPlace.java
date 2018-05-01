@@ -10,6 +10,7 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,11 +40,21 @@ public class MarketPlace extends AppCompatActivity {
     Button myitems;
     DrawerLayout mdl;
     NavigationView nv;
-    TextView profile_name;
-    String username;
-    ImageView profile;
+    CardView card_view_marketplace;
+    CardView card_view_marketplace2;
+    CardView card_view_marketplace3;
+    CardView card_view_marketplace4;
+    Button btn_list;
+    Button btn_buy;
+    Button btn_lend;
+    Button btn_exchange;
     Context context;
+    ImageView profile;
+    String username;
+    TextView profile_name;
     SharedPreferences sharedPreferences;
+    String id = "";
+    String imageid = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,19 +68,28 @@ public class MarketPlace extends AppCompatActivity {
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
         mdl = findViewById(R.id.drawer_layout);
         nv = findViewById(R.id.nav_view);
-        profile_name = (TextView) nv.getHeaderView(0).findViewById(R.id.profile_username);
-        context = this;
-        sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
-        profile = (ImageView) nv.getHeaderView(0).findViewById(R.id.profile_picture);
-        String imageid = sharedPreferences.getString("imageid",null).toString();
-        username = sharedPreferences.getString("username",null).toString();
-        profile_name.setText(username);
-        Picasso.with(context).load("https://s3-us-west-2.amazonaws.com/item-bucket/" + imageid).into(profile);
         list_item = (ImageButton) findViewById(R.id.list_item);
         buy_item = (ImageButton) findViewById(R.id.sell_item);
         lend_item = (ImageButton) findViewById(R.id.lend_item);
         exchange_item = (ImageButton) findViewById(R.id.exchange_item);
         myitems = (Button) findViewById(R.id.myitems);
+        card_view_marketplace = findViewById(R.id.card_view_marketplace);
+        card_view_marketplace2 = findViewById(R.id.card_view_marketplace2);
+        card_view_marketplace3 = findViewById(R.id.card_view_marketplace3);
+        card_view_marketplace4 = findViewById(R.id.card_view_marketplace4);
+        btn_list = findViewById(R.id.btn_list);
+        btn_buy = findViewById(R.id.btn_buy);
+        btn_lend = findViewById(R.id.btn_lend);
+        btn_exchange = findViewById(R.id.btn_exchange);
+        profile = (ImageView) nv.getHeaderView(0).findViewById(R.id.profile_picture);
+        context = this;
+        profile_name = (TextView) nv.getHeaderView(0).findViewById(R.id.profile_username);
+        sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+        id = sharedPreferences.getString("userid",null).toString();
+        imageid = sharedPreferences.getString("imageid",null).toString();
+        username = sharedPreferences.getString("username",null).toString();
+        profile_name.setText(username);
+        Picasso.with(context).load("https://s3-us-west-2.amazonaws.com/item-bucket/" + imageid).into(profile);
 
         // Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713
         MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
@@ -182,9 +202,41 @@ public class MarketPlace extends AppCompatActivity {
             }
         });
 
+        btn_list.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent next = new Intent(getApplicationContext(), ListItemPage.class);
+                startActivity(next);
+            }
+        });
+
+        card_view_marketplace.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent next = new Intent(getApplicationContext(), ListItemPage.class);
+                startActivity(next);
+            }
+        });
+
         buy_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent next = new Intent(getApplicationContext(), SellActivity.class);
+                startActivity(next);
+            }
+        });
+
+        btn_buy.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent next = new Intent(getApplicationContext(), SellActivity.class);
+                startActivity(next);
+            }
+        });
+
+        card_view_marketplace2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 Intent next = new Intent(getApplicationContext(), SellActivity.class);
                 startActivity(next);
             }
@@ -198,9 +250,41 @@ public class MarketPlace extends AppCompatActivity {
             }
         });
 
+        btn_lend.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent next = new Intent(getApplicationContext(), LendActivity.class);
+                startActivity(next);
+            }
+        });
+
+        card_view_marketplace3.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent next = new Intent(getApplicationContext(), LendActivity.class);
+                startActivity(next);
+            }
+        });
+
         exchange_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent next = new Intent(getApplicationContext(), ExchangeActivity.class);
+                startActivity(next);
+            }
+        });
+
+        btn_exchange.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent next = new Intent(getApplicationContext(), ExchangeActivity.class);
+                startActivity(next);
+            }
+        });
+
+        card_view_marketplace4.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
                 Intent next = new Intent(getApplicationContext(), ExchangeActivity.class);
                 startActivity(next);
             }
