@@ -32,11 +32,9 @@
         android:fontFamily="@font/bangers"
         android:gravity="center"
         android:paddingBottom="3dp"
-        android:paddingRight="3dp"
         android:paddingTop="15dp"
         android:textColor="@color/colorAccent"
-        android:textSize="26sp"
-        />
+        android:textSize="36sp" />
 
 </LinearLayout>
 </RelativeLayout>

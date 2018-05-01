@@ -59,12 +59,15 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:fitsSystemWindows="true">
+        android:fitsSystemWindows="true"
+        >
 
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/scrollView">
+            android:id="@+id/scrollView"
+            android:background="@color/blue_grey_900"
+            >
 
             <RelativeLayout
                 android:layout_width="match_parent"
@@ -84,8 +87,8 @@
 
                 <ImageView
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/nav_view"
+                    android:layout_height="match_parent"
+                    android:layout_below="@id/nav_view"
                     android:background="@color/blue_grey_900"
                     android:layout_alignParentBottom="true"
                     android:src="@drawable/uta_logo"/>
@@ -94,8 +97,9 @@
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@Copyright UTA"
-                    android:textColor="@color/white"
+                    android:text="©Copyright 2018 UT Arlington"
+                    android:fontFamily="@font/hammersmith_one"
+                    android:textColor="@color/orange_A400"
                     android:layout_alignParentBottom="true"
                     android:gravity="center_horizontal"/>
 
