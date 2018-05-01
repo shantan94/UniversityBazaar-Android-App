@@ -153,8 +153,10 @@ public class ExchangeActivityDetails extends AppCompatActivity {
         });
 
         button = (Button) findViewById(R.id.exchange);
-        if(id.equals(userid.getText().toString()))
+        if(id.equals(userid.getText().toString())) {
             button.setVisibility(View.GONE);
+            delete_item.setVisibility(View.VISIBLE);
+        }
 
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override

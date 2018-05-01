@@ -151,8 +151,10 @@ public class BuyActivityDetails extends AppCompatActivity {
         });
 
         button = (Button) findViewById(R.id.buy);
-        if(id.equals(userid.getText().toString()))
+        if(id.equals(userid.getText().toString())) {
             button.setVisibility(View.GONE);
+            delete_item.setVisibility(View.VISIBLE);
+        }
 
         nv.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
