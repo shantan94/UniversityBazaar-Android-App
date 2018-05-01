@@ -313,7 +313,7 @@ public class ProfilePage extends AppCompatActivity implements AdapterView.OnItem
                 builder.setTitle(Html.fromHtml("<font color='#FDD835'>Upload Profile Picture</font>"));
                 final View customLayout = getLayoutInflater().inflate(R.layout.activity_dialog_view, null);
                 builder.setView(customLayout);
-                ImageView dialog_image = customLayout.findViewById(R.id.dialog_image);;
+                ImageView dialog_image = customLayout.findViewById(R.id.dialog_image);
                 dialog_image.setImageBitmap(bitmap);
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override

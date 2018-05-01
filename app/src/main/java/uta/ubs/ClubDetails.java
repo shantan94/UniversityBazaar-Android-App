@@ -4,7 +4,9 @@ import android.annotation.TargetApi;
 import android.app.Notification;
 import android.app.NotificationChannel;
 import android.app.NotificationManager;
+import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
@@ -18,9 +20,11 @@ import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.text.Editable;
+import android.text.Html;
 import android.text.TextWatcher;
 import android.view.MenuItem;
 import android.view.View;
@@ -76,6 +80,8 @@ public class ClubDetails extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     String id;
     String imageid;
+    Button leave_club;
+    Button delete_club;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -121,12 +127,84 @@ public class ClubDetails extends AppCompatActivity {
         rl = (RelativeLayout) findViewById(R.id.relative);
         send = (Button) findViewById(R.id.send);
         chat = (EditText) findViewById(R.id.chat);
+        leave_club = (Button) findViewById(R.id.leave);
+        delete_club = (Button) findViewById(R.id.delete);
 
         // Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713
         MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+        delete_club.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle(Html.fromHtml("<font color='#FDD835'>Delete Club</font>"));
+                final View customLayout = getLayoutInflater().inflate(R.layout.activity_dialog_view1, null);
+                builder.setView(customLayout);
+                TextView dialog_message = customLayout.findViewById(R.id.message);
+                dialog_message.setText("Do you want to delete the club?");
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String status = cs.deleteClubs(b.getString("name"));
+                        String status1 = cs.deleteClubMembers(b.getString("name"));
+                        String status2 = cs.deleteClubMessages(b.getString("name"));
+                        if(status.equals("Success") && status1.equals("Success") && status2.equals("Success")){
+                            Toast.makeText(getApplicationContext(), "Club delete successful", Toast.LENGTH_SHORT).show();
+                            Intent next = new Intent(getApplicationContext(), Clubs.class);
+                            startActivity(next);
+                        }
+                        else
+                            Toast.makeText(getApplicationContext(), "Club delete failed", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.getWindow().setBackgroundDrawableResource(R.color.backgroundPrimary);
+                dialog.show();
+            }
+        });
+
+        leave_club.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(context);
+                builder.setTitle(Html.fromHtml("<font color='#FDD835'>Leave Club</font>"));
+                final View customLayout = getLayoutInflater().inflate(R.layout.activity_dialog_view1, null);
+                builder.setView(customLayout);
+                TextView dialog_message = customLayout.findViewById(R.id.message);
+                dialog_message.setText("Do you want to leave the club?");
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String status = cs.leaveClub(id, b.getString("name"));
+                        if (status.equals("Success")){
+                            Toast.makeText(getApplicationContext(), "Club left successfully", Toast.LENGTH_SHORT).show();
+                            Intent next = new Intent(getApplicationContext(), Clubs.class);
+                            startActivity(next);
+                        }
+                        else
+                            Toast.makeText(getApplicationContext(), "Club left failed", Toast.LENGTH_SHORT).show();
+                    }
+                });
+                builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+                });
+                AlertDialog dialog = builder.create();
+                dialog.getWindow().setBackgroundDrawableResource(R.color.backgroundPrimary);
+                dialog.show();
+            }
+        });
 
         profile.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -169,7 +247,14 @@ public class ClubDetails extends AppCompatActivity {
         if(list.contains(id)){
             b1.setVisibility(View.GONE);
             rl.setVisibility(View.VISIBLE);
+            leave_club.setVisibility(View.VISIBLE);
         }
+
+        if(list.get(0).equals(id)){
+            leave_club.setVisibility(View.GONE);
+            delete_club.setVisibility(View.VISIBLE);
+        }
+
         ClubDetails.AsyncTaskRunner  runner = new ClubDetails.AsyncTaskRunner();
         runner.executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR);
 

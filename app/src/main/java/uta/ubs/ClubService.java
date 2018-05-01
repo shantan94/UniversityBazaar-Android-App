@@ -59,6 +59,119 @@ public class ClubService {
         return "Failed";
     }
 
+    public String deleteClubs(String clubname){
+        try{
+            URL url = new URL(endpoint + "/users/deleteclubs");
+            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+            conn.setRequestMethod("DELETE");
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            conn.setUseCaches(false);
+            conn.setAllowUserInteraction(false);
+            conn.setRequestProperty("Content-Type", "application/json");
+            JSONObject user = new JSONObject();
+            user.put("clubname", clubname);
+            OutputStream out = conn.getOutputStream();
+            Writer writer = new OutputStreamWriter(out, "UTF-8");
+            writer.write(user.toString());
+            writer.close();
+            out.close();
+            BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            JSONObject result = new JSONObject(rd.readLine());
+            rd.close();
+            return result.getString("message");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return "Failed";
+    }
+
+    public String deleteClubMessages(String clubname){
+        try{
+            URL url = new URL(endpoint + "/users/deleteclubmessages");
+            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+            conn.setRequestMethod("DELETE");
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            conn.setUseCaches(false);
+            conn.setAllowUserInteraction(false);
+            conn.setRequestProperty("Content-Type", "application/json");
+            JSONObject user = new JSONObject();
+            user.put("clubname", clubname);
+            OutputStream out = conn.getOutputStream();
+            Writer writer = new OutputStreamWriter(out, "UTF-8");
+            writer.write(user.toString());
+            writer.close();
+            out.close();
+            BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            JSONObject result = new JSONObject(rd.readLine());
+            rd.close();
+            return result.getString("message");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return "Failed";
+    }
+
+    public String deleteClubMembers(String clubname){
+        try{
+            URL url = new URL(endpoint + "/users/deleteclubmembers");
+            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+            conn.setRequestMethod("DELETE");
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            conn.setUseCaches(false);
+            conn.setAllowUserInteraction(false);
+            conn.setRequestProperty("Content-Type", "application/json");
+            JSONObject user = new JSONObject();
+            user.put("clubname", clubname);
+            OutputStream out = conn.getOutputStream();
+            Writer writer = new OutputStreamWriter(out, "UTF-8");
+            writer.write(user.toString());
+            writer.close();
+            out.close();
+            BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            JSONObject result = new JSONObject(rd.readLine());
+            rd.close();
+            return result.getString("message");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return "Failed";
+    }
+
+    public String leaveClub(String id, String clubname){
+        try{
+            URL url = new URL(endpoint + "/users/leaveclub");
+            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            conn.setUseCaches(false);
+            conn.setAllowUserInteraction(false);
+            conn.setRequestProperty("Content-Type", "application/json");
+            JSONObject user = new JSONObject();
+            user.put("userid", id);
+            user.put("clubname", clubname);
+            OutputStream out = conn.getOutputStream();
+            Writer writer = new OutputStreamWriter(out, "UTF-8");
+            writer.write(user.toString());
+            writer.close();
+            out.close();
+            BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            JSONObject result = new JSONObject(rd.readLine());
+            rd.close();
+            return result.getString("message");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return "Failed";
+    }
+
     public void insertMessage(Message m, String clubname){
         try{
             URL url = new URL(endpoint + "/users/clubmessage/insert");

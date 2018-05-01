@@ -94,6 +94,34 @@ public class ItemService {
         return templist;
     }
 
+    public String deleteItem(String imageid){
+        try{
+            URL url = new URL(endpoint + "/users/deleteitem");
+            HttpURLConnection conn = (HttpURLConnection)url.openConnection();
+            conn.setRequestMethod("DELETE");
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            conn.setUseCaches(false);
+            conn.setAllowUserInteraction(false);
+            conn.setRequestProperty("Content-Type", "application/json");
+            JSONObject user = new JSONObject();
+            user.put("imageid", imageid);
+            OutputStream out = conn.getOutputStream();
+            Writer writer = new OutputStreamWriter(out, "UTF-8");
+            writer.write(user.toString());
+            writer.close();
+            out.close();
+            BufferedReader rd = new BufferedReader(new InputStreamReader(conn.getInputStream()));
+            JSONObject result = new JSONObject(rd.readLine());
+            rd.close();
+            return result.getString("message");
+        }
+        catch (Exception e){
+            e.printStackTrace();
+        }
+        return "Failed";
+    }
+
     public ArrayList<Item> getMyItems(String type, String userid){
         ArrayList<Item> templist = new ArrayList<>();
         try{
