@@ -17,12 +17,15 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by Ann on 3/27/2018.
@@ -37,6 +40,11 @@ public class ResetPasswordActivity extends AppCompatActivity {
     SharedPreferences sharedPreferences;
     DrawerLayout mdl;
     NavigationView nv;
+    TextView profile_name;
+    String username;
+    ImageView profile;
+    Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -49,6 +57,8 @@ public class ResetPasswordActivity extends AppCompatActivity {
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
         mdl = findViewById(R.id.drawer_layout);
         nv = findViewById(R.id.nav_view);
+        profile_name = (TextView) nv.getHeaderView(0).findViewById(R.id.profile_username);
+        context = this;
         if (Build.VERSION.SDK_INT > 9) {
             StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder().permitAll().build();
             StrictMode.setThreadPolicy(policy);
@@ -60,12 +70,25 @@ public class ResetPasswordActivity extends AppCompatActivity {
         final EditText ConfirmPasswordData = (EditText) findViewById(R.id.ConfirmPasswordData);
         sharedPreferences = getSharedPreferences(MyPREFERENCES, Context.MODE_PRIVATE);
         rs = new RegisterService();
+        profile = (ImageView) nv.getHeaderView(0).findViewById(R.id.profile_picture);
+        String imageid = sharedPreferences.getString("imageid",null).toString();
+        username = sharedPreferences.getString("username",null).toString();
+        profile_name.setText(username);
+        Picasso.with(context).load("https://s3-us-west-2.amazonaws.com/item-bucket/" + imageid).into(profile);
 
         // Sample AdMob app ID: ca-app-pub-3940256099942544~3347511713
         MobileAds.initialize(this, "ca-app-pub-3940256099942544~3347511713");
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent next = new Intent(getApplicationContext(), ProfilePage.class);
+                startActivity(next);
+            }
+        });
 
         mAdView.setAdListener(new AdListener() {
             @Override

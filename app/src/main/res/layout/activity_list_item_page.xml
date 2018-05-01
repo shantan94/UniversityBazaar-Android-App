@@ -79,7 +79,7 @@
         android:id="@+id/type"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:popupBackground="@color/light_green_500"
+        android:popupBackground="@color/colorAccent"
         android:theme="@style/AppTheme"></Spinner>
 
     <EditText

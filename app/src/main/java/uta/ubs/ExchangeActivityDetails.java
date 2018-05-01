@@ -50,13 +50,16 @@ public class ExchangeActivityDetails extends AppCompatActivity {
     Button delete_item;
     ItemService is;
     NegotiateService ns;
+    TextView profile_name;
+    String username;
+    ImageView profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exchange_details_page);
         Toolbar toolbar = findViewById(R.id.toolbar);
-        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        toolbar.setTitleTextColor(getResources().getColor(R.color.black));
         setSupportActionBar(toolbar);
         ActionBar actionbar = getSupportActionBar();
         actionbar.setDisplayHomeAsUpEnabled(true);
@@ -65,11 +68,17 @@ public class ExchangeActivityDetails extends AppCompatActivity {
         nv = findViewById(R.id.nav_view);
         Intent current = this.getIntent();
         context = this;
+        profile_name = (TextView) nv.getHeaderView(0).findViewById(R.id.profile_username);
         b = current.getExtras();
         ns = new NegotiateService();
         is = new ItemService();
         sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         id = sharedPreferences.getString("userid",null).toString();
+        profile = (ImageView) nv.getHeaderView(0).findViewById(R.id.profile_picture);
+        String imageid = sharedPreferences.getString("imageid",null).toString();
+        username = sharedPreferences.getString("username",null).toString();
+        profile_name.setText(username);
+        Picasso.with(context).load("https://s3-us-west-2.amazonaws.com/item-bucket/" + imageid).into(profile);
         itemname = (TextView) findViewById(R.id.item_name);
         description = (TextView) findViewById(R.id.description);
         price = (TextView) findViewById(R.id.price);
@@ -87,6 +96,14 @@ public class ExchangeActivityDetails extends AppCompatActivity {
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent next = new Intent(getApplicationContext(), ProfilePage.class);
+                startActivity(next);
+            }
+        });
 
         delete_item.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -42,6 +44,10 @@ public class ItemsChat extends AppCompatActivity implements AdapterView.OnItemCl
     SharedPreferences sharedPreferences;
     DrawerLayout mdl;
     NavigationView nv;
+    TextView profile_name;
+    String username;
+    ImageView profile;
+    Context context;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -55,10 +61,17 @@ public class ItemsChat extends AppCompatActivity implements AdapterView.OnItemCl
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
         mdl = findViewById(R.id.drawer_layout);
         nv = findViewById(R.id.nav_view);
+        profile_name = (TextView) nv.getHeaderView(0).findViewById(R.id.profile_username);
+        context = this;
         Intent current = this.getIntent();
         b = current.getExtras();
         sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         id = sharedPreferences.getString("userid",null).toString();
+        profile = (ImageView) nv.getHeaderView(0).findViewById(R.id.profile_picture);
+        String imageid = sharedPreferences.getString("imageid",null).toString();
+        username = sharedPreferences.getString("username",null).toString();
+        profile_name.setText(username);
+        Picasso.with(context).load("https://s3-us-west-2.amazonaws.com/item-bucket/" + imageid).into(profile);
         lv = (ListView) findViewById(R.id.listView);
         list = new ArrayList<>();
         ns = new NegotiateService();
@@ -72,6 +85,14 @@ public class ItemsChat extends AppCompatActivity implements AdapterView.OnItemCl
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent next = new Intent(getApplicationContext(), ProfilePage.class);
+                startActivity(next);
+            }
+        });
 
         mAdView.setAdListener(new AdListener() {
             @Override

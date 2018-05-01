@@ -49,6 +49,9 @@ public class LendActivityDetails extends AppCompatActivity {
     Button delete_item;
     ItemService is;
     NegotiateService ns;
+    TextView profile_name;
+    String username;
+    ImageView profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -63,10 +66,16 @@ public class LendActivityDetails extends AppCompatActivity {
         mdl = findViewById(R.id.drawer_layout);
         nv = findViewById(R.id.nav_view);
         Intent current = this.getIntent();
+        profile_name = (TextView) nv.getHeaderView(0).findViewById(R.id.profile_username);
         context = this;
         b = current.getExtras();
         sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         id = sharedPreferences.getString("userid",null).toString();
+        profile = (ImageView) nv.getHeaderView(0).findViewById(R.id.profile_picture);
+        String imageid = sharedPreferences.getString("imageid",null).toString();
+        username = sharedPreferences.getString("username",null).toString();
+        profile_name.setText(username);
+        Picasso.with(context).load("https://s3-us-west-2.amazonaws.com/item-bucket/" + imageid).into(profile);
         itemname = (TextView) findViewById(R.id.item_name);
         description = (TextView) findViewById(R.id.description);
         price = (TextView) findViewById(R.id.price);
@@ -86,6 +95,14 @@ public class LendActivityDetails extends AppCompatActivity {
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent next = new Intent(getApplicationContext(), ProfilePage.class);
+                startActivity(next);
+            }
+        });
 
         delete_item.setOnClickListener(new View.OnClickListener() {
             @Override

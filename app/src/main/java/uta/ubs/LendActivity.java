@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -22,6 +23,7 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -39,6 +41,11 @@ public class LendActivity extends AppCompatActivity implements AdapterView.OnIte
     ItemAdapter ia;
     DrawerLayout mdl;
     NavigationView nv;
+    TextView profile_name;
+    String username;
+    ImageView profile;
+    Context context;
+    SharedPreferences sharedPreferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -52,6 +59,14 @@ public class LendActivity extends AppCompatActivity implements AdapterView.OnIte
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
         mdl = findViewById(R.id.drawer_layout);
         nv = findViewById(R.id.nav_view);
+        profile_name = (TextView) nv.getHeaderView(0).findViewById(R.id.profile_username);
+        context = this;
+        sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
+        profile = (ImageView) nv.getHeaderView(0).findViewById(R.id.profile_picture);
+        String imageid = sharedPreferences.getString("imageid",null).toString();
+        username = sharedPreferences.getString("username",null).toString();
+        profile_name.setText(username);
+        Picasso.with(context).load("https://s3-us-west-2.amazonaws.com/item-bucket/" + imageid).into(profile);
         lv = (ListView) findViewById(R.id.textView2_lend);
         list = new ArrayList<>();
         is = new ItemService();
@@ -66,6 +81,14 @@ public class LendActivity extends AppCompatActivity implements AdapterView.OnIte
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent next = new Intent(getApplicationContext(), ProfilePage.class);
+                startActivity(next);
+            }
+        });
 
         mAdView.setAdListener(new AdListener() {
             @Override

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -34,6 +35,7 @@ import com.google.android.gms.ads.AdListener;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
+import com.squareup.picasso.Picasso;
 
 /**
  * Created by shantan on 2/23/2018.
@@ -62,6 +64,9 @@ public class ListItemPage extends AppCompatActivity implements AdapterView.OnIte
     String id;
     DrawerLayout mdl;
     NavigationView nv;
+    TextView profile_name;
+    String username;
+    ImageView profile;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -75,10 +80,16 @@ public class ListItemPage extends AppCompatActivity implements AdapterView.OnIte
         actionbar.setHomeAsUpIndicator(R.drawable.ic_menu);
         mdl = findViewById(R.id.drawer_layout);
         nv = findViewById(R.id.nav_view);
+        profile_name = (TextView) nv.getHeaderView(0).findViewById(R.id.profile_username);
         is = new ItemService();
         context = this;
         sharedPreferences = getSharedPreferences(LoginActivity.MyPREFERENCES, Context.MODE_PRIVATE);
         id = sharedPreferences.getString("userid",null).toString();
+        profile = (ImageView) nv.getHeaderView(0).findViewById(R.id.profile_picture);
+        String imageid = sharedPreferences.getString("imageid",null).toString();
+        username = sharedPreferences.getString("username",null).toString();
+        profile_name.setText(username);
+        Picasso.with(context).load("https://s3-us-west-2.amazonaws.com/item-bucket/" + imageid).into(profile);
         select_image = (Button) findViewById(R.id.select);
         getImage = (ImageView) findViewById(R.id.post_image);
         type = (Spinner) findViewById(R.id.type);
@@ -97,6 +108,14 @@ public class ListItemPage extends AppCompatActivity implements AdapterView.OnIte
         mAdView = findViewById(R.id.adView);
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
+
+        profile.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent next = new Intent(getApplicationContext(), ProfilePage.class);
+                startActivity(next);
+            }
+        });
 
         mAdView.setAdListener(new AdListener() {
             @Override
@@ -255,12 +274,13 @@ public class ListItemPage extends AppCompatActivity implements AdapterView.OnIte
 
     @Override
     public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        ((TextView) adapterView.getChildAt(0)).setTextColor(Color.parseColor("#FDD835"));
         value = adapterView.getItemAtPosition(i).toString();
     }
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
-        return;
+        ((TextView) adapterView.getChildAt(0)).setTextColor(Color.parseColor("#FDD835"));
     }
 
     private class AsyncTaskRunner extends AsyncTask<String, String, String> {
