@@ -41,7 +41,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/clubname"
-        android:textSize="16dp"
+        android:fontFamily="@font/bangers"
+        android:textSize="25dp"
+        android:gravity="center_horizontal"
         android:textColor="@color/colorAccent"/>
 
     <Button

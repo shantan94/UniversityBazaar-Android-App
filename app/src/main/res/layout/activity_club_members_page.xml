@@ -19,7 +19,7 @@
             android:background="@color/colorAccent"
             android:theme="@style/ThemeOverlay.AppCompat.ActionBar" />
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent" android:background="@color/blue_grey_900">
 
@@ -32,13 +32,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="Members List"
-        android:textSize="20dp"
+        android:textSize="30dp"
+        android:fontFamily="@font/bangers"
+        android:gravity="center_horizontal"
+        android:id="@+id/ml"
+        android:layout_below="@+id/profile_pic"
         android:textColor="@color/colorAccent"/>
 
     <ListView
         android:id="@+id/listView"
+        android:layout_below="@+id/ml"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:dividerHeight="0dp"
+        android:divider="@null"
         android:transcriptMode="alwaysScroll" />
 
     <com.google.android.gms.ads.AdView
@@ -52,7 +59,7 @@
         ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
     </com.google.android.gms.ads.AdView>
 
-</LinearLayout>
+</RelativeLayout>
     </LinearLayout>
     <android.support.design.widget.NavigationView
         android:id="@+id/nav_view_parent"

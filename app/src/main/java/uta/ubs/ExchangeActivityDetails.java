@@ -121,7 +121,7 @@ public class ExchangeActivityDetails extends AppCompatActivity {
                         String status1 = ns.deleteNegotiation(b.getString("imageid"));
                         if(status.equals("Success") && status1.equals("Success")){
                             Toast.makeText(getApplicationContext(), "Item delete successful", Toast.LENGTH_SHORT).show();
-                            Intent next = new Intent(getApplicationContext(), LendActivity.class);
+                            Intent next = new Intent(getApplicationContext(), ExchangeActivity.class);
                             startActivity(next);
                         }
                         else

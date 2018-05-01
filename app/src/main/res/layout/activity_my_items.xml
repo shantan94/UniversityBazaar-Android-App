@@ -34,6 +34,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/lend_tag"
             android:text="Lend Items"
+            android:fontFamily="@font/bangers"
+            android:textSize="25dp"
             android:layout_gravity="center_horizontal"
             android:textColor="@color/colorAccent"/>
 
@@ -50,6 +52,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/Sell_tag"
             android:text="Sell Items"
+            android:fontFamily="@font/bangers"
+            android:textSize="25dp"
             android:layout_gravity="center_horizontal"
             android:textColor="@color/colorAccent"/>
 
@@ -66,6 +70,8 @@
             android:layout_height="wrap_content"
             android:id="@+id/exchange_tag"
             android:text="Exchange Items"
+            android:fontFamily="@font/bangers"
+            android:textSize="25dp"
             android:layout_gravity="center_horizontal"
             android:textColor="@color/colorAccent"/>
 
