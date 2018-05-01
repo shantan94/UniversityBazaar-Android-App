@@ -19,6 +19,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="left"
+            android:backgroundTint="@color/black"
             android:background="@drawable/other"
             android:paddingLeft="10dp"
             android:paddingBottom="10dp"
@@ -28,12 +29,14 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/message"
+                android:textColor="@color/white"
                 android:layout_marginRight="10dp"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:id="@+id/date"
                 android:textSize="8dp"
+                android:textColor="@color/white"
                 android:layout_marginRight="10dp" />
         </LinearLayout>
 

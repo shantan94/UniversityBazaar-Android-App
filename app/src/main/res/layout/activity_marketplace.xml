@@ -197,9 +197,9 @@
                         android:text="My Items"
                         android:layout_below="@+id/item_scroll"
                         android:layout_weight="1"
-                        android:background="@drawable/button_border"
+                        android:background="@drawable/ripple_effect"
                         android:textColor="@color/colorAccent"
-                        android:layout_centerHorizontal="true"/>
+                        android:layout_gravity="center_horizontal"/>
                 </LinearLayout>
             </ScrollView>
 
@@ -209,7 +209,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerHorizontal="true"
-                android:layout_alignParentBottom="true"
+                android:layout_alignParentTop="true"
                 ads:adSize="SMART_BANNER"
                 ads:adUnitId="ca-app-pub-3940256099942544/6300978111">
             </com.google.android.gms.ads.AdView>
